@@ -29,6 +29,7 @@ Default deployment target:
 - Project: `deleg8-dev`
 - Region: `us-central1`
 - Service: `company-brain-harness-site`
+- URL: `https://company-brain-harness-site-j6cr4ur6gq-uc.a.run.app`
 
 Required GitHub secrets for the workflow:
 
@@ -47,7 +48,7 @@ gcloud run deploy company-brain-harness-site \
   --region us-central1 \
   --source . \
   --allow-unauthenticated \
-  --set-env-vars NEXT_PUBLIC_SITE_URL=https://YOUR-CLOUD-RUN-URL
+  --set-env-vars NEXT_PUBLIC_SITE_URL=https://company-brain-harness-site-j6cr4ur6gq-uc.a.run.app
 ```
 
 ## Content Scope

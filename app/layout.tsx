@@ -3,7 +3,8 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
 const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://company-brain-harness.run.app";
+  process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
+  "https://company-brain-harness-site-j6cr4ur6gq-uc.a.run.app";
 const title = "Company Brain Harness | Governed company memory for AI agents";
 const description =
   "Installable Company Brain Harness documentation for building source-governed organizational memory that Claude, Codex, teams, and operators can safely use.";
