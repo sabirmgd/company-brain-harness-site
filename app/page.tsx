@@ -265,7 +265,12 @@ export default function Home() {
             </a>
           ))}
         </nav>
-        <a className="cta-nav" href="#book">
+        <a
+          className="cta-nav"
+          href="https://calendly.com/sabirmgd/30min"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <CalendarClock size={16} />
           <span>Book a call</span>
         </a>
@@ -692,11 +697,12 @@ claude plugin install company-brain-harness
               </p>
               <a
                 className="btn btn-primary btn-lg"
-                href="#"
-                aria-disabled="true"
+                href="https://calendly.com/sabirmgd/30min"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <CalendarClock size={20} />
-                Meeting invite link coming soon
+                Book your setup call
               </a>
               <p className="cta-note">
                 Free setup consultation. No commitment required.

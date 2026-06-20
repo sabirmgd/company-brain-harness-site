@@ -2,7 +2,7 @@
 
 Company Brain Harness is an installable operating layer for building a governed company memory root that Claude Code, Codex, operators, and team members can safely use.
 
-Canonical site: https://company-brain-harness-site-j6cr4ur6gq-uc.a.run.app
+Canonical site: https://companyos.deleg8.dev
 
 ## What It Is
 
