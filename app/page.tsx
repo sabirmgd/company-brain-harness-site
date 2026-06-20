@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   ArrowRight,
   BookOpen,
@@ -5,11 +6,9 @@ import {
   Building2,
   CalendarClock,
   CheckCircle2,
-  ChevronRight,
   CircleDot,
   ClipboardCheck,
   Database,
-  FileCheck2,
   FolderTree,
   Layers3,
   Lock,
@@ -254,7 +253,12 @@ export default function Home() {
           aria-label="Company Brain Harness home"
         >
           <span className="brand-mark">
-            <BrainCircuit size={18} />
+            <Image
+              src="/cbh-logo-icon.png"
+              alt="Company Brain Harness"
+              width={20}
+              height={20}
+            />
           </span>
           <span>Company Brain Harness</span>
         </a>
@@ -325,6 +329,17 @@ export default function Home() {
                 </span>
               </div>
             </AnimateIn>
+            <AnimateIn delay={400}>
+              <div className="hero-illustration">
+                <Image
+                  src="/cbh-hero-knowledge-flow.png"
+                  alt="Scattered company knowledge transformed into a structured, governed brain"
+                  width={1376}
+                  height={768}
+                  priority
+                />
+              </div>
+            </AnimateIn>
           </div>
         </div>
       </section>
@@ -332,34 +347,13 @@ export default function Home() {
       <section className="flow-pipeline">
         <div className="container">
           <AnimateIn>
-            <div className="pipeline">
-              <div className="pipe-node">
-                <Plug size={18} /> Sources
-              </div>
-              <div className="pipe-arrow">
-                <ChevronRight size={18} />
-              </div>
-              <div className="pipe-node">
-                <Database size={18} /> Evidence
-              </div>
-              <div className="pipe-arrow">
-                <ChevronRight size={18} />
-              </div>
-              <div className="pipe-node">
-                <FileCheck2 size={18} /> Review
-              </div>
-              <div className="pipe-arrow">
-                <ChevronRight size={18} />
-              </div>
-              <div className="pipe-node active">
-                <BrainCircuit size={18} /> Brain
-              </div>
-              <div className="pipe-arrow">
-                <ChevronRight size={18} />
-              </div>
-              <div className="pipe-node">
-                <TerminalSquare size={18} /> Agents
-              </div>
+            <div className="pipeline-visual">
+              <Image
+                src="/cbh-data-pipeline.png"
+                alt="Data pipeline: Sources to Evidence to Review to Brain to Agents"
+                width={1584}
+                height={672}
+              />
             </div>
           </AnimateIn>
         </div>
@@ -740,7 +734,12 @@ claude plugin install company-brain-harness
           <div>
             <span className="brand footer-brand">
               <span className="brand-mark">
-                <BrainCircuit size={17} />
+                <Image
+                  src="/cbh-logo-icon.png"
+                  alt="Company Brain Harness"
+                  width={18}
+                  height={18}
+                />
               </span>
               <span>Company Brain Harness</span>
             </span>

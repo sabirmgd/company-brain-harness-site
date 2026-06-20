@@ -28,6 +28,14 @@ export const metadata: Metadata = {
   description,
   applicationName: "Company Brain Harness",
   manifest: "/site.webmanifest",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "32x32" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+  },
   authors: [{ name: "Company Brain Harness" }],
   creator: "Company Brain Harness",
   publisher: "Company Brain Harness",
@@ -55,10 +63,10 @@ export const metadata: Metadata = {
     description,
     images: [
       {
-        url: "/company-brain-system.png",
-        width: 1536,
-        height: 1024,
-        alt: "Company Brain Harness governed source capture and review interface",
+        url: "/cbh-og-image.png",
+        width: 2752,
+        height: 1536,
+        alt: "Company Brain Harness — governed company memory for AI agents",
       },
     ],
   },
@@ -66,7 +74,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title,
     description,
-    images: ["/company-brain-system.png"],
+    images: ["/cbh-og-image.png"],
   },
   robots: {
     index: true,
