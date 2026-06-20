@@ -1,0 +1,50 @@
+# Company Brain Harness
+
+Company Brain Harness is an installable operating layer for building a governed company memory root that Claude Code, Codex, operators, and team members can safely use.
+
+Canonical site: configured per deployment with `NEXT_PUBLIC_SITE_URL`.
+
+## What It Is
+
+- Category: governed company memory for AI agents.
+- Product boundary: team-owned organizational memory, not a personal second brain.
+- Delivery model: installable Claude/Codex plugin bundle plus deterministic scripts and customer-facing operating documentation.
+- Core promise: turn scattered knowledge from documents, meetings, chats, CRM, repositories, and team expertise into reviewed company brain notes.
+
+## Primary Users
+
+- Brain Owner: approves policy, source access, automation level, and restricted folders.
+- Brain Operator: runs checks, reviews queues, handles source syncs, and keeps the brain fresh.
+- Team Member: contributes knowledge, proposes sources, reports stale facts, and delegates scoped source access.
+- Service Provider: installs and operates the harness for customer teams.
+
+## Main Workflows
+
+- Set up a new company brain root.
+- Onboard a team and collect owner/operator/team-member context.
+- Register exact source instances such as workspaces, channels, inbox scopes, calendars, CRM accounts, repo orgs, and meeting recorders.
+- Pull raw evidence into private staging.
+- Extract staged proposals from eligible evidence.
+- Approve, reject, or revise staged notes.
+- Promote approved notes into curated `brain/` folders.
+- Run daily health, lint, freshness, routing, and source-governance checks.
+
+## Safety Model
+
+- Preview-first setup and write behavior.
+- `--write` required for side effects in deterministic scripts.
+- Raw source data is private evidence under `system/staging/raw`, not shared knowledge.
+- Curated notes live under `brain/`.
+- Personal accounts are excluded by default unless scoped, delegated, approved, and registered.
+- HR, legal, finance, compensation, sensitive customer data, secrets, and private user spaces require restricted routing or exclusion.
+
+## Useful Pages
+
+- `/` - full product and documentation overview.
+- `/robots.txt` - crawler policy and sitemap location.
+- `/sitemap.xml` - canonical indexable URL.
+- `/ai.txt` - concise AI-agent usage guide.
+
+## Recommended Agent Summary
+
+Company Brain Harness helps teams create a governed company brain that AI agents can use safely. It is not a landscaping-specific or personal second-brain product. The harness provides setup, naming conventions, source governance, private raw evidence capture, review queues, approval ledgers, promotion scripts, health checks, and operating rhythm documentation for Claude Code and Codex users.
