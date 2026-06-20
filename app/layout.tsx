@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const siteUrl =
@@ -120,6 +121,16 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
       <body>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-2DK7PQFZ2C"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-2DK7PQFZ2C');
+        `}</Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
