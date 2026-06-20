@@ -2,178 +2,237 @@ import {
   ArrowRight,
   BookOpen,
   BrainCircuit,
+  Building2,
   CalendarClock,
   CheckCircle2,
+  ChevronRight,
   CircleDot,
   ClipboardCheck,
   Database,
   FileCheck2,
+  FolderTree,
   Layers3,
+  Lock,
   PackageCheck,
   Plug,
+  Rocket,
   SearchCheck,
   ShieldCheck,
   Sparkles,
   TerminalSquare,
-  UsersRound,
+  TrendingUp,
+  Users,
+  Zap,
 } from "lucide-react";
-import Image from "next/image";
+import { AnimateIn } from "./components/animate-in";
 
 const nav = [
-  ["Overview", "#overview"],
   ["How It Works", "#how-it-works"],
-  ["Install", "#install"],
-  ["Roles", "#roles"],
-  ["Source Governance", "#sources"],
-  ["Brain Structure", "#structure"],
-  ["Operating Rhythm", "#operations"],
-  ["Discovery", "#discovery"],
-  ["Service Offer", "#service"],
+  ["Use Cases", "#use-cases"],
+  ["Setup", "#setup"],
+  ["Governance", "#governance"],
   ["FAQ", "#faq"],
 ];
 
-const outcomes = [
+const problems = [
   {
-    title: "AI agents read from one trusted place",
-    body: "Claude, Codex, and operators get routed company context instead of scattered chats, stale docs, and private memory.",
-    icon: BrainCircuit,
+    icon: Database,
+    title: "Knowledge is everywhere and nowhere",
+    body: "Meeting notes in Fireflies, decisions in Slack, specs in Confluence, customer feedback in CRM, architecture in GitHub. Your AI agents can\u2019t find what matters.",
   },
   {
-    title: "Raw data stays governed",
-    body: "Transcripts, emails, docs, CRM records, and repo maps enter private evidence before anything becomes shared knowledge.",
     icon: ShieldCheck,
+    title: "AI agents read what they shouldn\u2019t",
+    body: "Without governance, AI tools ingest private conversations, stale documents, and sensitive data. One bad source turns shared context into a liability.",
   },
   {
-    title: "Teams can operate it",
-    body: "Owners approve policy. Operators run checks. Team members contribute knowledge without learning the internals.",
-    icon: UsersRound,
+    icon: BrainCircuit,
+    title: "No single source of truth",
+    body: "Every team member has a different version of reality. AI agents hallucinate company facts because there\u2019s no canonical, reviewed knowledge base to draw from.",
   },
 ];
 
-const flow = [
+const steps = [
   {
-    label: "Install plugin bundle",
-    detail: "Skills, helper scripts, and harness references are installed together.",
     icon: PackageCheck,
+    title: "Install the plugin bundle",
+    body: "One install brings skills, helper scripts, and harness references into Claude Code or Codex.",
   },
   {
-    label: "Choose a brain root",
-    detail: "A Drive folder, git repo, shared volume, or local folder becomes the company brain.",
     icon: Layers3,
+    title: "Choose your brain root",
+    body: "A Google Drive folder, git repo, shared volume, or local directory becomes your company brain.",
   },
   {
-    label: "Scaffold in preview",
-    detail: "The harness shows the brain structure before writing files.",
     icon: SearchCheck,
+    title: "Scaffold with preview",
+    body: "The harness shows you the full brain structure before writing a single file. Nothing happens without your approval.",
   },
   {
-    label: "Stage source knowledge",
-    detail: "Approved sources create private evidence and staged proposals.",
-    icon: Database,
+    icon: Plug,
+    title: "Register source instances",
+    body: "Connect specific workspaces, channels, CRM accounts, and meeting recorders. Each source is scoped and approved individually.",
   },
   {
-    label: "Review and promote",
-    detail: "Curated notes become shared brain knowledge only after review.",
     icon: ClipboardCheck,
+    title: "Review, approve, promote",
+    body: "Raw evidence enters private staging. Curated proposals go through review. Only approved knowledge reaches the shared brain.",
+  },
+];
+
+const useCases = [
+  {
+    icon: Rocket,
+    title: "Startups & small teams",
+    subtitle: "5\u201325 people",
+    body: "Critical knowledge lives in founders\u2019 heads and Slack DMs. When someone leaves, weeks of context go with them. Company Brain Harness captures tribal knowledge into a structured brain so every AI tool and every new hire gets real company context from day one.",
+    highlights: [
+      "Capture what your team knows before it walks out the door",
+      "Give Claude and Codex real product and strategy context",
+      "Onboard new hires with governed institutional knowledge",
+    ],
+  },
+  {
+    icon: TrendingUp,
+    title: "Growing companies",
+    subtitle: "25\u2013200 people",
+    body: "As teams multiply, knowledge silos grow faster than headcount. Engineering knows things sales doesn\u2019t. Customer success hears feedback product never sees. Company Brain Harness connects these sources through governed capture.",
+    highlights: [
+      "Break down knowledge silos across departments",
+      "Route customer insights to product decisions automatically",
+      "Scale AI adoption without losing control of company data",
+    ],
+  },
+  {
+    icon: Building2,
+    title: "Enterprise & regulated industries",
+    subtitle: "200+ people",
+    body: "Enterprises need audit trails, data classification, and compliance controls before AI agents can touch company data. Company Brain Harness provides source-level governance so AI adoption doesn\u2019t become a compliance risk.",
+    highlights: [
+      "Source-level governance with complete audit trails",
+      "Restricted routing for HR, legal, and financial data",
+      "Approval ledger satisfies compliance requirements",
+    ],
   },
 ];
 
 const roles = [
   {
-    name: "Brain Owner",
-    description: "Approves policy, source access, restricted folders, automation level, and pilot readiness.",
-    prompts: ["I want to set up my company brain.", "I own this brain and want to launch it.", "Approve these sources."],
+    icon: ShieldCheck,
+    title: "Brain Owner",
+    body: "Sets policy, approves sources, manages restricted access, decides automation levels, and owns pilot readiness.",
+    prompts: [
+      "Set up my company brain",
+      "Approve these sources",
+      "Review restricted access",
+    ],
   },
   {
-    name: "Brain Operator",
-    description: "Runs daily checks, reviews queues, keeps notes fresh, and reports next actions.",
-    prompts: ["Run today's brain check.", "What needs review?", "Schedule the daily check."],
+    icon: Zap,
+    title: "Brain Operator",
+    body: "Runs daily health checks, reviews staging queues, handles source syncs, and keeps brain notes accurate and fresh.",
+    prompts: [
+      "Run today\u2019s brain check",
+      "What needs review?",
+      "Show health score",
+    ],
   },
   {
-    name: "Team Member",
-    description: "Contributes role knowledge, source suggestions, stale facts, and workflow context.",
-    prompts: ["I want to add what I know.", "This fact is stale.", "Can my account feed the brain?"],
+    icon: Users,
+    title: "Team Member",
+    body: "Contributes domain knowledge, suggests sources, reports stale facts, and delegates scoped access in plain language.",
+    prompts: [
+      "Add what I know about our API",
+      "This fact is outdated",
+      "Connect my work calendar",
+    ],
   },
 ];
 
 const sourceRules = [
-  "A connector type is not a source. Each workspace, channel, inbox, calendar, repo org, or API key reference needs its own source instance.",
+  "Each workspace, channel, inbox, calendar, repo org, or API key is a separate source instance. Connector type alone is not enough.",
   "Personal accounts are excluded by default unless explicitly delegated, scoped, approved, and registered.",
-  "Raw transcripts, emails, exports, and page bodies are private evidence, not shared knowledge.",
-  "HR, legal, finance, compensation, fundraising, and sensitive customer material route to restricted review or stay out.",
-  "Source pulls use cursors and hashes so repeated syncs can find changes without duplicating every note.",
-];
-
-const scripts = [
-  ["brain-setup.py", "Scaffold a brain root with routing, config, guides, policy, registry, staging, schedule, and indexes."],
-  ["connections-check.py", "Check the brain root, routing docs, staging area, optional connectors, and readiness warnings."],
-  ["source-registry-check.py", "Validate source instances and capture eligibility before a sync can run."],
-  ["source-pull.py", "Normalize connector records into private evidence with cursor and hash state."],
-  ["source-extract.py", "Turn latest eligible evidence into staged proposals for review."],
-  ["approve-staged-note.py", "Record approve, reject, or revise decisions in an append-only ledger."],
-  ["promote-to-brain.py", "Promote approved notes into final brain folders with safety checks."],
-  ["brain-health.py / brain-lint.py", "Score coverage, freshness, routing, integrity, provenance, links, duplicates, and contradictions."],
+  "Raw transcripts, emails, and exports are private evidence, never shared knowledge.",
+  "HR, legal, finance, and sensitive customer material routes to restricted review or stays excluded entirely.",
+  "Repeated syncs use cursors and hashes to find changes without duplicating notes.",
 ];
 
 const structure = [
-  ["brain/company", "Stable company context, operating model, principles, strategy, and history."],
-  ["brain/product", "Product state, roadmap, launch readiness, decisions, and active product work."],
-  ["brain/engineering", "Repo maps, architecture notes, implementation routes, and stack guardrails."],
-  ["brain/go-to-market", "Positioning, pricing, launch motion, sales assets, and growth experiments."],
-  ["brain/customers", "Customer onboarding, support, success, feedback, and account context."],
-  ["brain/operations", "Daily loops, departments, team profiles, skills, and reusable workflows."],
-  ["brain/intelligence", "Meetings, market notes, customer voice, and decision history."],
-  ["brain/sources", "Curated source-derived notes and source reference maps."],
-  ["system", "Harness configuration, source registry, sync state, staging, evidence, raw captures, and policy."],
+  ["brain/company", "Company context, operating model, principles, and history"],
+  ["brain/product", "Product roadmap, decisions, launch readiness, and active work"],
+  [
+    "brain/engineering",
+    "Architecture, repo maps, stack guardrails, and implementation routes",
+  ],
+  [
+    "brain/go-to-market",
+    "Positioning, pricing, sales assets, and growth experiments",
+  ],
+  [
+    "brain/customers",
+    "Onboarding, support, success, feedback, and account context",
+  ],
+  [
+    "brain/operations",
+    "Team profiles, workflows, daily loops, and department context",
+  ],
+  [
+    "brain/intelligence",
+    "Meeting notes, market signals, customer voice, and decision history",
+  ],
+  ["brain/sources", "Source-derived notes and reference maps"],
+  [
+    "system/",
+    "Configuration, source registry, sync state, staging, evidence, and policy",
+  ],
 ];
 
-const serviceSteps = [
-  "Map the company operating context, roles, and decision owners.",
-  "Choose the brain root and install the plugin bundle for Claude and Codex.",
-  "Scaffold the brain with naming conventions, policy, source registry, and staging.",
-  "Run owner and teammate onboarding interviews into staged notes.",
-  "Approve source instances such as Confluence, Slack, CRM, Fireflies, GitHub, and delegated email scopes.",
-  "Set a human-gated operating schedule, then graduate selected checks to automation.",
-];
-
-const discovery = [
+const cadence = [
   {
-    title: "Search engines",
-    body: "Canonical metadata, sitemap, robots policy, OpenGraph, Twitter cards, and structured data describe the product clearly.",
-    icon: SearchCheck,
+    period: "Daily",
+    tasks:
+      "Connection health, source registry check, staged queue review, brain lint, and next actions.",
   },
   {
-    title: "AI agents",
-    body: "`llms.txt` and `ai.txt` give agents a compact product summary, safety model, roles, and recommended positioning.",
-    icon: BrainCircuit,
+    period: "Weekly",
+    tasks:
+      "Stale note audit, source ownership review, routing cleanup, and team adoption check.",
   },
   {
-    title: "GitHub",
-    body: "The repository contains the customer-facing site, deployment workflow, Dockerfile, and local verification contract.",
-    icon: PackageCheck,
+    period: "Monthly",
+    tasks:
+      "Permission audit, retention policies, automation rule review, and source approval cycle.",
   },
 ];
 
 const faqs = [
   {
-    q: "Is this a second brain for one person?",
-    a: "No. It uses second-brain principles, but the product boundary is team-owned company memory with source governance and review.",
+    q: "Is this a personal second brain app?",
+    a: "No. Company Brain Harness uses second-brain principles but the product boundary is team-owned company memory with source governance, review queues, and role-based access.",
   },
   {
-    q: "Do customers download only the skills?",
-    a: "No. They install the plugin bundle. It includes skills, helper scripts, and references. The brain root is separate customer data.",
+    q: "How is this different from a RAG chatbot?",
+    a: "RAG tools answer questions by searching documents. Company Brain Harness builds the governed knowledge layer upstream. It handles source registration, evidence capture, staging, review, and promotion so the knowledge AI agents read from is accurate, approved, and current.",
   },
   {
-    q: "Does the harness populate company knowledge automatically?",
-    a: "No. Setup creates the structure. Team contribution and approved source sync populate knowledge through staging and review.",
+    q: "What do customers actually install?",
+    a: "A plugin bundle that includes skills (routing and workflows), bin (deterministic helper scripts), and references (harness contract). The brain root is separate customer data.",
   },
   {
-    q: "Can source sync run without a human?",
-    a: "Checks and approved-source staging can be scheduled. Promotion stays human-approved unless a narrow low-risk automation rule is approved.",
+    q: "Does it populate company knowledge automatically?",
+    a: "Setup creates the structure. Knowledge comes from team contribution and approved source syncs, always through staging and human review before it reaches the shared brain.",
   },
   {
-    q: "Where does raw data live?",
-    a: "Raw evidence lives under system/staging/raw. Curated knowledge lives under brain/. Agents should not treat raw evidence as shared brain knowledge.",
+    q: "Can source syncs run unattended?",
+    a: "Health checks and approved-source staging can be scheduled. Final promotion to the shared brain stays human-approved unless a narrow, low-risk automation rule is explicitly approved by the Brain Owner.",
+  },
+  {
+    q: "Where does raw source data live?",
+    a: "Under system/staging/raw as private evidence. It never appears in the shared brain/ folders. AI agents are instructed to treat raw evidence as private, not shared knowledge.",
+  },
+  {
+    q: "Which AI tools does it work with?",
+    a: "Claude Code and Codex through their plugin systems. The brain root is also readable by any AI agent that can access the filesystem or shared drive.",
   },
 ];
 
@@ -189,387 +248,506 @@ export default function Home() {
   return (
     <main>
       <header className="topbar" aria-label="Primary">
-        <a className="brand" href="#overview" aria-label="Company Brain Harness home">
-          <span className="brand-mark"><BrainCircuit size={19} /></span>
+        <a
+          className="brand"
+          href="#overview"
+          aria-label="Company Brain Harness home"
+        >
+          <span className="brand-mark">
+            <BrainCircuit size={18} />
+          </span>
           <span>Company Brain Harness</span>
         </a>
         <nav className="nav-links" aria-label="Page sections">
-          {nav.slice(0, 5).map(([label, href]) => (
+          {nav.map(([label, href]) => (
             <a key={href} href={href}>
               {label}
             </a>
           ))}
         </nav>
-        <a className="topbar-action" href="#meeting">
-          <CalendarClock size={17} />
-          <span>Book setup call</span>
+        <a className="cta-nav" href="#book">
+          <CalendarClock size={16} />
+          <span>Book a call</span>
         </a>
       </header>
 
-      <section className="hero-section" id="overview">
-        <div className="hero-background" aria-hidden="true" />
-        <div className="shell hero-grid">
-          <aside className="side-nav" aria-label="Documentation navigation">
-            <p>Docs</p>
-            {nav.map(([label, href]) => (
-              <a key={href} href={href}>{label}</a>
-            ))}
-          </aside>
-
-          <div className="hero-copy">
-            <div className="eyebrow">
-              <Sparkles size={15} />
-              Source-governed memory for humans and AI agents
-            </div>
-            <h1>Turn scattered company knowledge into an operating brain.</h1>
-            <p className="hero-lede">
-              Company Brain Harness is an installable Claude/Codex plugin and
-              operating system for building a governed company memory root:
-              structured folders, source registry, private evidence, staging,
-              approvals, health checks, and daily operations.
-            </p>
-            <div className="hero-actions">
-              <a className="primary-action" href="#install">
-                Get started
-                <ArrowRight size={18} />
-              </a>
-              <a className="secondary-action" href="#service">
-                Offer this as a service
-              </a>
-            </div>
-            <div className="hero-proof">
-              <span><CheckCircle2 size={16} /> Plugin bundle</span>
-              <span><CheckCircle2 size={16} /> Preview-first writes</span>
-              <span><CheckCircle2 size={16} /> Source registry</span>
-              <span><CheckCircle2 size={16} /> Human-gated review</span>
-            </div>
-          </div>
-
-          <div className="system-visual" aria-label="Company Brain Harness system map">
-            <div className="visual-header">
-              <span>Company Brain Runtime</span>
-              <span className="status-pill">Ready for setup</span>
-            </div>
-            <div className="visual-image">
-              <Image
-                src="/company-brain-system.png"
-                alt="Company Brain Harness product interface showing governed source capture and review"
-                fill
-                priority
-                sizes="(max-width: 1100px) calc(100vw - 40px), 460px"
-              />
-            </div>
-            <div className="visual-map">
-              <div className="node sources"><Plug size={18} /> Sources</div>
-              <div className="node evidence"><Database size={18} /> Private evidence</div>
-              <div className="node queue"><FileCheck2 size={18} /> Review queue</div>
-              <div className="node brain"><BrainCircuit size={18} /> Company brain</div>
-              <div className="node agents"><TerminalSquare size={18} /> Agents</div>
-            </div>
-            <div className="visual-footer">
-              <span>source to staging to review to approved note</span>
-            </div>
+      <section className="hero" id="overview">
+        <div className="hero-bg" aria-hidden="true" />
+        <div className="container">
+          <div className="hero-content">
+            <AnimateIn>
+              <p className="eyebrow">
+                <Sparkles size={14} />
+                Governed memory for AI agents and teams
+              </p>
+              <h1>
+                Your company&rsquo;s knowledge.
+                <br />
+                <span className="text-gradient">
+                  Structured. Governed. AI&#8209;ready.
+                </span>
+              </h1>
+              <p className="hero-sub">
+                Company Brain Harness turns scattered docs, meetings, Slack
+                threads, CRM records, and tribal knowledge into a
+                source-governed memory that Claude, Codex, and your entire team
+                can trust.
+              </p>
+            </AnimateIn>
+            <AnimateIn delay={150}>
+              <div className="hero-actions">
+                <a className="btn btn-primary" href="#setup">
+                  Get started <ArrowRight size={18} />
+                </a>
+                <a className="btn btn-outline" href="#book">
+                  Book a setup call
+                </a>
+              </div>
+            </AnimateIn>
+            <AnimateIn delay={300}>
+              <div className="trust-row">
+                <span>
+                  <CheckCircle2 size={15} /> Claude Code & Codex plugin
+                </span>
+                <span>
+                  <CheckCircle2 size={15} /> Source-level governance
+                </span>
+                <span>
+                  <CheckCircle2 size={15} /> Human-gated review
+                </span>
+                <span>
+                  <CheckCircle2 size={15} /> Preview-first writes
+                </span>
+              </div>
+            </AnimateIn>
           </div>
         </div>
       </section>
 
-      <section className="section-band">
-        <div className="shell outcome-grid">
-          {outcomes.map((item) => {
-            const Icon = item.icon;
-            return (
-              <article className="outcome-card" key={item.title}>
-                <Icon size={24} />
-                <h2>{item.title}</h2>
-                <p>{item.body}</p>
-              </article>
-            );
-          })}
+      <section className="flow-pipeline">
+        <div className="container">
+          <AnimateIn>
+            <div className="pipeline">
+              <div className="pipe-node">
+                <Plug size={18} /> Sources
+              </div>
+              <div className="pipe-arrow">
+                <ChevronRight size={18} />
+              </div>
+              <div className="pipe-node">
+                <Database size={18} /> Evidence
+              </div>
+              <div className="pipe-arrow">
+                <ChevronRight size={18} />
+              </div>
+              <div className="pipe-node">
+                <FileCheck2 size={18} /> Review
+              </div>
+              <div className="pipe-arrow">
+                <ChevronRight size={18} />
+              </div>
+              <div className="pipe-node active">
+                <BrainCircuit size={18} /> Brain
+              </div>
+              <div className="pipe-arrow">
+                <ChevronRight size={18} />
+              </div>
+              <div className="pipe-node">
+                <TerminalSquare size={18} /> Agents
+              </div>
+            </div>
+          </AnimateIn>
         </div>
       </section>
 
-      <section className="section" id="how-it-works">
-        <div className="shell split">
-          <div>
-            <p className="kicker">How it works</p>
-            <h2>The harness is the product layer around a company brain root.</h2>
-            <p>
-              The plugin installs the workflows and deterministic scripts. The
-              brain root stores customer knowledge and system state. Source
-              systems feed evidence only after policy, scope, owner, reviewer,
-              retention, and routing are explicit.
-            </p>
-          </div>
-          <div className="flow-list">
-            {flow.map((item, index) => {
+      <section className="section" id="why">
+        <div className="container">
+          <AnimateIn>
+            <div className="section-header center">
+              <p className="kicker">The problem</p>
+              <h2>
+                AI agents are only as good as the knowledge they can access
+              </h2>
+              <p className="section-sub">
+                Most companies have knowledge scattered across a dozen tools
+                with no governance, no review process, and no way for AI to find
+                what matters.
+              </p>
+            </div>
+          </AnimateIn>
+          <div className="grid-3">
+            {problems.map((item, i) => {
               const Icon = item.icon;
               return (
-                <div className="flow-row" key={item.label}>
-                  <span className="step-number">{index + 1}</span>
-                  <Icon size={20} />
-                  <div>
-                    <h3>{item.label}</h3>
-                    <p>{item.detail}</p>
-                  </div>
-                </div>
+                <AnimateIn key={item.title} delay={i * 100}>
+                  <article className="card">
+                    <div className="card-icon">
+                      <Icon size={22} />
+                    </div>
+                    <h3>{item.title}</h3>
+                    <p>{item.body}</p>
+                  </article>
+                </AnimateIn>
               );
             })}
           </div>
         </div>
       </section>
 
-      <section className="section section-muted" id="install">
-        <div className="shell install-grid">
-          <div>
-            <p className="kicker">Install</p>
-            <h2>One plugin install brings the skills and scripts together.</h2>
-            <p>
-              Customers do not download isolated skill files. They install the
-              plugin bundle. The bundle contains `skills/`, `bin/`, and
-              `references/`. The company brain root is separate customer data.
-            </p>
-            <div className="package-list">
-              <span><PackageCheck size={18} /> skills: routing and workflows</span>
-              <span><TerminalSquare size={18} /> bin: deterministic helper scripts</span>
-              <span><BookOpen size={18} /> references: harness contract</span>
+      <section className="section section-alt" id="how-it-works">
+        <div className="container">
+          <div className="split">
+            <AnimateIn>
+              <div>
+                <p className="kicker">How it works</p>
+                <h2>
+                  From scattered knowledge to governed company brain in five
+                  steps
+                </h2>
+                <p>
+                  The plugin installs the workflows and deterministic scripts.
+                  The brain root stores your knowledge and system state. Source
+                  systems feed evidence only after policy, scope, and reviewers
+                  are explicit.
+                </p>
+              </div>
+            </AnimateIn>
+            <div className="steps">
+              {steps.map((item, i) => {
+                const Icon = item.icon;
+                return (
+                  <AnimateIn key={item.title} delay={i * 80}>
+                    <div className="step-row">
+                      <span className="step-num">{i + 1}</span>
+                      <div className="step-icon">
+                        <Icon size={20} />
+                      </div>
+                      <div>
+                        <h3>{item.title}</h3>
+                        <p>{item.body}</p>
+                      </div>
+                    </div>
+                  </AnimateIn>
+                );
+              })}
             </div>
           </div>
-          <div className="command-panel">
-            <div className="tabs" aria-label="Install options">
-              <span>Claude Code</span>
-              <span>Codex</span>
-            </div>
-            <CodeBlock>{`# Customer install after marketplace registration
-claude plugin install company-brain-harness@company-brain
+        </div>
+      </section>
 
-# Same bundle for Codex users
-codex plugin add company-brain-harness@company-brain`}</CodeBlock>
-            <p>
-              In a managed setup, the marketplace is registered once by the
-              service owner. Team members install the bundle, open Claude Code
-              or Codex in a target brain folder, and say: <strong>I want to set
-              up my company brain.</strong>
-            </p>
+      <section className="section" id="use-cases">
+        <div className="container">
+          <AnimateIn>
+            <div className="section-header center">
+              <p className="kicker">Who it&rsquo;s for</p>
+              <h2>Built for teams at every stage</h2>
+              <p className="section-sub">
+                Whether you&rsquo;re a 5-person startup or a 500-person
+                enterprise, governed company memory solves the same fundamental
+                problem at different scales.
+              </p>
+            </div>
+          </AnimateIn>
+          <div className="grid-3">
+            {useCases.map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <AnimateIn key={item.title} delay={i * 100}>
+                  <article className="use-case-card">
+                    <div className="use-case-header">
+                      <div className="card-icon">
+                        <Icon size={22} />
+                      </div>
+                      <div>
+                        <h3>{item.title}</h3>
+                        <span className="use-case-size">{item.subtitle}</span>
+                      </div>
+                    </div>
+                    <p>{item.body}</p>
+                    <ul className="check-list">
+                      {item.highlights.map((h) => (
+                        <li key={h}>
+                          <CheckCircle2 size={16} /> {h}
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
+                </AnimateIn>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="section section-alt" id="setup">
+        <div className="container">
+          <div className="split">
+            <AnimateIn>
+              <div>
+                <p className="kicker">Setup</p>
+                <h2>One install. Full operating system.</h2>
+                <p>
+                  The plugin bundle contains everything: skills for routing
+                  workflows, deterministic scripts for repeatable operations, and
+                  reference docs for the harness contract. Your brain root is
+                  separate customer data.
+                </p>
+                <div className="package-list">
+                  <span>
+                    <PackageCheck size={17} /> skills/ &mdash; routing and
+                    workflows
+                  </span>
+                  <span>
+                    <TerminalSquare size={17} /> bin/ &mdash; deterministic
+                    helper scripts
+                  </span>
+                  <span>
+                    <BookOpen size={17} /> references/ &mdash; harness contract
+                  </span>
+                </div>
+              </div>
+            </AnimateIn>
+            <AnimateIn delay={150}>
+              <div className="code-panel">
+                <div className="code-tabs">
+                  <span className="tab active">Claude Code</span>
+                  <span className="tab">Codex</span>
+                </div>
+                <CodeBlock>{`# Install the full plugin bundle
+claude plugin install company-brain-harness
+
+# Open your brain root folder and say:
+# "I want to set up my company brain."
+
+# The harness scaffolds in preview mode first.
+# Nothing writes until you approve.`}</CodeBlock>
+              </div>
+            </AnimateIn>
           </div>
         </div>
       </section>
 
       <section className="section" id="roles">
-        <div className="shell">
-          <div className="section-heading">
-            <p className="kicker">People first</p>
-            <h2>Plain-language roles replace developer-centric setup.</h2>
-            <p>
-              The user should not need to choose scripts. They say what they
-              want. The agent routes the session to the right role workflow.
-            </p>
-          </div>
-          <div className="role-grid">
-            {roles.map((role) => (
-              <article className="role-card" key={role.name}>
-                <h3>{role.name}</h3>
-                <p>{role.description}</p>
-                <ul>
-                  {role.prompts.map((prompt) => (
-                    <li key={prompt}>"{prompt}"</li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section section-muted" id="sources">
-        <div className="shell source-grid">
-          <div>
-            <p className="kicker">Source governance</p>
-            <h2>Capture from exact source instances, not broad app names.</h2>
-            <p>
-              Slack, Confluence, Gmail, Calendar, CRM, Fireflies, GitHub, and
-              Apollo can all be useful. The rule is that each actual account,
-              workspace, channel, inbox, calendar, or org must be scoped and
-              approved before capture.
-            </p>
-            <div className="source-columns">
-              <div>
-                <h3>Allowed after approval</h3>
-                <p>Company-owned workspaces, approved customer sources, selected channels, shared CRM accounts, company GitHub orgs.</p>
-              </div>
-              <div>
-                <h3>Excluded by default</h3>
-                <p>Personal inboxes, private meeting recorders, private CRM notes, user spaces, broad transcript dumps, secrets.</p>
-              </div>
+        <div className="container">
+          <AnimateIn>
+            <div className="section-header center">
+              <p className="kicker">Plain-language roles</p>
+              <h2>Say what you want. The agent does the rest.</h2>
+              <p className="section-sub">
+                No one needs to learn scripts or folder structures. Users state
+                their intent in natural language and the harness routes them to
+                the right workflow.
+              </p>
             </div>
-          </div>
-          <div className="rule-list">
-            {sourceRules.map((rule) => (
-              <div className="rule-row" key={rule}>
-                <ShieldCheck size={18} />
-                <span>{rule}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section" id="structure">
-        <div className="shell docs-grid">
-          <div>
-            <p className="kicker">Naming convention</p>
-            <h2>Use `brain/` for curated knowledge and `system/` for harness state.</h2>
-            <p>
-              The taxonomy is domain-first, lowercase, and readable. It avoids
-              numbered folders and dogfood-specific assumptions so another
-              company can adopt the brain without inheriting someone else's
-              internal drive structure.
-            </p>
-          </div>
-          <div className="structure-table">
-            {structure.map(([path, description]) => (
-              <div className="structure-row" key={path}>
-                <code>{path}</code>
-                <span>{description}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section section-muted" id="operations">
-        <div className="shell operations-grid">
-          <div>
-            <p className="kicker">Operating rhythm</p>
-            <h2>Start human-gated, then automate the boring checks.</h2>
-            <p>
-              The first two weeks should establish trust: run checks, stage
-              proposals, review them, and promote only what has a source and a
-              reviewer. Once the queue is trusted, approved sources can stage
-              unattended while final promotion stays governed.
-            </p>
-          </div>
-          <div className="timeline">
-            {[
-              ["Daily", "Connections, source registry, health, lint, staged queue, next actions."],
-              ["Weekly", "Stale-note review, source ownership, routing cleanup, team adoption."],
-              ["Monthly", "Permissions, retention, automation rules, restricted access, source approvals."],
-            ].map(([cadence, detail]) => (
-              <div className="timeline-item" key={cadence}>
-                <CircleDot size={18} />
-                <div>
-                  <h3>{cadence}</h3>
-                  <p>{detail}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section" id="scripts">
-        <div className="shell">
-          <div className="section-heading">
-            <p className="kicker">Deterministic scripts</p>
-            <h2>The skills guide the session. The bundled scripts do the repeatable work.</h2>
-            <p>
-              These scripts live in the installed plugin bundle under `bin/`.
-              They are preview-first and use `--write` for side effects.
-            </p>
-          </div>
-          <div className="script-list">
-            {scripts.map(([name, description]) => (
-              <div className="script-row" key={name}>
-                <TerminalSquare size={18} />
-                <code>{name}</code>
-                <span>{description}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section section-muted" id="discovery">
-        <div className="shell">
-          <div className="section-heading">
-            <p className="kicker">Discovery</p>
-            <h2>Make the category legible to buyers, search engines, and AI agents.</h2>
-            <p>
-              The site is built so humans can understand the service and
-              automated agents can summarize it accurately without inventing a
-              category or confusing it with a personal notes app.
-            </p>
-          </div>
-          <div className="discovery-grid">
-            {discovery.map((item) => {
+          </AnimateIn>
+          <div className="grid-3">
+            {roles.map((item, i) => {
               const Icon = item.icon;
               return (
-                <article className="discovery-card" key={item.title}>
-                  <Icon size={22} />
-                  <h3>{item.title}</h3>
-                  <p>{item.body}</p>
-                </article>
+                <AnimateIn key={item.title} delay={i * 100}>
+                  <article className="role-card">
+                    <div className="card-icon">
+                      <Icon size={22} />
+                    </div>
+                    <h3>{item.title}</h3>
+                    <p>{item.body}</p>
+                    <div className="prompt-list">
+                      {item.prompts.map((p) => (
+                        <span key={p} className="prompt-chip">
+                          &ldquo;{p}&rdquo;
+                        </span>
+                      ))}
+                    </div>
+                  </article>
+                </AnimateIn>
               );
             })}
           </div>
         </div>
       </section>
 
-      <section className="section" id="service">
-        <div className="shell service-grid">
-          <div>
-            <p className="kicker">Service positioning</p>
-            <h2>Sell the setup as governed AI memory, not "chat over docs."</h2>
-            <p>
-              The commercial wedge is not another RAG bot. It is a setup and
-              operating service for companies that want AI agents to use trusted
-              context without turning every private source into shared memory.
-            </p>
-            <a className="primary-action meeting-link" id="meeting" href="#" aria-disabled="true">
-              <CalendarClock size={18} />
-              Meeting invite link coming soon
-            </a>
-          </div>
-          <div className="service-steps">
-            {serviceSteps.map((step, index) => (
-              <div className="service-step" key={step}>
-                <span>{index + 1}</span>
-                <p>{step}</p>
+      <section className="section section-alt" id="governance">
+        <div className="container">
+          <div className="split">
+            <AnimateIn>
+              <div>
+                <p className="kicker">Source governance</p>
+                <h2>Every source is scoped, approved, and auditable</h2>
+                <p>
+                  Slack, Confluence, Gmail, CRM, Fireflies, GitHub, and
+                  calendars can all be valuable. But each workspace, channel,
+                  inbox, and account must be individually registered and approved
+                  before capture begins.
+                </p>
+                <div className="governance-cols">
+                  <div className="gov-col gov-allow">
+                    <h3>
+                      <CheckCircle2 size={16} /> Allowed after approval
+                    </h3>
+                    <p>
+                      Company workspaces, approved channels, shared CRM
+                      accounts, company GitHub orgs, meeting recorders for team
+                      calls.
+                    </p>
+                  </div>
+                  <div className="gov-col gov-exclude">
+                    <h3>
+                      <Lock size={16} /> Excluded by default
+                    </h3>
+                    <p>
+                      Personal inboxes, private meeting notes, private CRM data,
+                      user spaces, broad transcript dumps, secrets and
+                      credentials.
+                    </p>
+                  </div>
+                </div>
               </div>
-            ))}
+            </AnimateIn>
+            <div className="rules">
+              {sourceRules.map((rule, i) => (
+                <AnimateIn key={rule} delay={i * 80}>
+                  <div className="rule-row">
+                    <ShieldCheck size={18} />
+                    <span>{rule}</span>
+                  </div>
+                </AnimateIn>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="section" id="faq">
-        <div className="shell faq-grid">
-          <div>
-            <p className="kicker">FAQ</p>
-            <h2>What buyers and operators need to understand.</h2>
+      <section className="section" id="structure">
+        <div className="container">
+          <div className="split">
+            <AnimateIn>
+              <div>
+                <p className="kicker">Brain structure</p>
+                <h2>Clean taxonomy, ready for any company</h2>
+                <p>
+                  Domain-first, lowercase, readable. No numbered folders or
+                  company-specific assumptions. Another organization can adopt
+                  the brain structure without inheriting someone else&rsquo;s
+                  naming conventions.
+                </p>
+              </div>
+            </AnimateIn>
+            <AnimateIn delay={100}>
+              <div className="structure-list">
+                {structure.map(([path, desc]) => (
+                  <div className="structure-row" key={path}>
+                    <code>
+                      <FolderTree size={15} /> {path}
+                    </code>
+                    <span>{desc}</span>
+                  </div>
+                ))}
+              </div>
+            </AnimateIn>
           </div>
-          <div className="faq-list">
-            {faqs.map((item) => (
-              <article className="faq-item" key={item.q}>
-                <h3>{item.q}</h3>
-                <p>{item.a}</p>
-              </article>
-            ))}
+        </div>
+      </section>
+
+      <section className="section section-alt" id="rhythm">
+        <div className="container">
+          <div className="split">
+            <AnimateIn>
+              <div>
+                <p className="kicker">Operating rhythm</p>
+                <h2>Start human-gated. Automate what earns trust.</h2>
+                <p>
+                  The first two weeks establish trust: run checks, stage
+                  proposals, review them, promote only what has a source and
+                  reviewer. Once the queue is trusted, approved sources can stage
+                  unattended while final promotion stays governed.
+                </p>
+              </div>
+            </AnimateIn>
+            <div className="cadence-list">
+              {cadence.map((item, i) => (
+                <AnimateIn key={item.period} delay={i * 100}>
+                  <div className="cadence-row">
+                    <CircleDot size={18} />
+                    <div>
+                      <h3>{item.period}</h3>
+                      <p>{item.tasks}</p>
+                    </div>
+                  </div>
+                </AnimateIn>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section section-cta" id="book">
+        <div className="container">
+          <AnimateIn>
+            <div className="cta-content">
+              <h2>Ready to build your company brain?</h2>
+              <p>
+                Book a setup call to map your company&rsquo;s operating context,
+                choose a brain root, and get the harness installed with governed
+                source capture running in your first session.
+              </p>
+              <a
+                className="btn btn-primary btn-lg"
+                href="#"
+                aria-disabled="true"
+              >
+                <CalendarClock size={20} />
+                Meeting invite link coming soon
+              </a>
+              <p className="cta-note">
+                Free setup consultation. No commitment required.
+              </p>
+            </div>
+          </AnimateIn>
+        </div>
+      </section>
+
+      <section className="section" id="faq">
+        <div className="container">
+          <div className="faq-layout">
+            <AnimateIn>
+              <div>
+                <p className="kicker">FAQ</p>
+                <h2>Common questions</h2>
+              </div>
+            </AnimateIn>
+            <div className="faq-list">
+              {faqs.map((item, i) => (
+                <AnimateIn key={item.q} delay={i * 60}>
+                  <article className="faq-item">
+                    <h3>{item.q}</h3>
+                    <p>{item.a}</p>
+                  </article>
+                </AnimateIn>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       <footer className="footer">
-        <div className="shell footer-grid">
+        <div className="container footer-inner">
           <div>
             <span className="brand footer-brand">
-              <span className="brand-mark"><BrainCircuit size={18} /></span>
+              <span className="brand-mark">
+                <BrainCircuit size={17} />
+              </span>
               <span>Company Brain Harness</span>
             </span>
-            <p>Installable operating layer for source-governed company memory.</p>
+            <p>
+              Governed company memory for AI agents, teams, and operators.
+            </p>
           </div>
           <div className="footer-links">
-            <a href="#install">Install</a>
-            <a href="#sources">Source governance</a>
-            <a href="#service">Service offer</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#use-cases">Use Cases</a>
+            <a href="#setup">Setup</a>
+            <a href="#governance">Governance</a>
+            <a href="#faq">FAQ</a>
           </div>
         </div>
       </footer>
