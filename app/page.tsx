@@ -28,9 +28,9 @@ import { AnimateIn } from "./components/animate-in";
 const nav = [
   ["How It Works", "#how-it-works"],
   ["Use Cases", "#use-cases"],
-  ["Setup", "#setup"],
   ["Governance", "#governance"],
   ["Blog", "/blog"],
+  ["Work with us", "/work"],
   ["FAQ", "#faq"],
 ];
 
@@ -751,8 +751,9 @@ claude plugin install company-brain-harness
           <div className="footer-links">
             <a href="#how-it-works">How It Works</a>
             <a href="#use-cases">Use Cases</a>
-            <a href="#setup">Setup</a>
             <a href="#governance">Governance</a>
+            <a href="/blog">Blog</a>
+            <a href="/work">Work with us</a>
             <a href="#faq">FAQ</a>
           </div>
         </div>
