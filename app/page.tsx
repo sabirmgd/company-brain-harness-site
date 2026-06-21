@@ -30,6 +30,7 @@ const nav = [
   ["Use Cases", "#use-cases"],
   ["Setup", "#setup"],
   ["Governance", "#governance"],
+  ["Blog", "/blog"],
   ["FAQ", "#faq"],
 ];
 

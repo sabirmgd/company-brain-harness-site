@@ -1,0 +1,223 @@
+---
+title: "The Brain Owner Playbook: Daily, Weekly, Monthly Rhythm for Your Company's AI Memory"
+description: "The Brain Owner is the missing role in every AI-knowledge-base setup. Here is the daily, weekly, monthly, quarterly rhythm that keeps the brain honest, scoped, and audit-ready."
+slug: "brain-owner-playbook-daily-weekly-monthly"
+publishedAt: "2026-06-22"
+updatedAt: "2026-06-22"
+author: "Sabir Moglad"
+category: "Operations"
+keywords:
+  - "brain owner"
+  - "ai knowledge base maintenance workflow"
+  - "company brain operations"
+  - "knowledge base review cadence"
+  - "claude code governance"
+  - "data steward ai"
+  - "agents.md workflow"
+  - "source approval rhythm"
+ogImage: "/cbh-og-image.png"
+references:
+  - id: "anthropic-best-practices"
+    title: "Best practices for Claude Code"
+    publisher: "Anthropic / Claude Code Documentation"
+    url: "https://code.claude.com/docs/en/best-practices"
+    date: "2026"
+  - id: "anthropic-teams"
+    title: "How Anthropic teams use Claude Code"
+    publisher: "Anthropic"
+    url: "https://claude.com/blog/how-anthropic-teams-use-claude-code"
+    date: "2026"
+  - id: "shape-up"
+    title: "Shape Up: Stop Running in Circles and Ship Work that Matters"
+    author: "Ryan Singer"
+    publisher: "Basecamp"
+    url: "https://basecamp.com/shapeup"
+    date: "2019"
+  - id: "itil-change"
+    title: "IT Change Management: ITIL Framework and Best Practices"
+    publisher: "Atlassian"
+    url: "https://www.atlassian.com/itsm/change-management"
+    date: "2026"
+  - id: "dama-steward"
+    title: "Data steward"
+    publisher: "Data Management Wiki (DAMA-DMBOK aligned)"
+    url: "https://datamanagement.wiki/role/data_steward"
+    date: "2026"
+  - id: "iapp-dpo"
+    title: "Exploring the ever-changing role of a data protection officer"
+    publisher: "IAPP"
+    url: "https://iapp.org/resources/article/exploring-the-ever-changing-role-of-a-data-protection-officer"
+    date: "2026"
+  - id: "zendesk-maintain"
+    title: "Getting started with self-service, Part 7: Maintaining and improving your knowledge base"
+    publisher: "Zendesk"
+    url: "https://support.zendesk.com/hc/en-us/articles/4408882663194-Getting-started-with-self-service-Part-7-Maintaining-and-improving-your-knowledge-base"
+    date: "2026"
+  - id: "notion-hubs"
+    title: "The ultimate guide to AI-powered knowledge hubs in Notion"
+    publisher: "Notion"
+    url: "https://www.notion.com/help/guides/ultimate-guide-to-ai-powered-knowledge-hubs-in-notion"
+    date: "2026"
+---
+
+I have been running governed AI knowledge bases across four very different teams, and the pattern I keep landing on is that the technology is rarely the bottleneck. The bottleneck is that nobody actually owns the brain.
+
+Everyone uses it, a few people contribute, one engineer set it up. Nobody is accountable for whether it is still telling the truth six months later, when a new joiner asks Claude what the company's refund policy actually is.
+
+This article gives that accountability a name and a job.
+
+Call the role the **Brain Owner**. Not Brain Operator (who runs the daily review queue), not Team Member (who contributes evidence), not the CTO who signed the purchase order. The Brain Owner is the person who, when something goes wrong with the AI's answer, has to look at the registry, the exclusion list, the audit log, and explain what happened and what they are changing.
+
+Small enough to be one person at a 40-person company. Rhythm is daily-weekly-monthly-quarterly. Playbook below is what I would give to whoever raised their hand for the job tomorrow.
+
+## What a Brain Owner actually owns
+
+Five things, all policy decisions, not implementation work.
+
+Approving new source instances in the registry. Not "Slack is approved," but "the `#product-announcements` channel in the main workspace, owned by the Head of Product, retention 180 days, scoped to the product wiki." A connector type is too broad; a named instance is the right unit. Same unit data stewards work with in classical DAMA-DMBOK governance, where each data asset has a named custodian rather than a department-wide blanket<Cite refId="dama-steward" />.
+
+Deciding retention windows. How long an email thread sits in staging before it expires, how long a meeting transcript stays attached to its entity page. "Indefinitely" is also a decision, the one that bites in year two.
+
+Setting and maintaining the exclusion list. HR, legal, finance, compensation, sensitive customer data, secrets, personal accounts. Cheapest hour in the whole setup, the one every team postpones until something embarrassing happens.
+
+Defining restricted scopes. Product wiki open to engineering. Deal-strategy wiki open to sales leadership. Exec scope open to four people. Without scopes, every approved source is implicitly global, the most common quiet failure mode I see.
+
+Approving the automation level. "Governed" means every promotion goes through human review. "Simple-team" means trusted sources auto-promote with a rules engine. "Read-only" means the brain reads but never writes. Most teams need governed for sensitive scopes, simple-team for low-stakes ones; the Owner decides which is which.
+
+That is the role. Notice what is not in it. Writing entity pages, running ingests, tagging tickets. Those are Operator jobs (the daily reviewer) and contributor jobs (the team member who drops a meeting transcript in the inbox). The Owner sets policy, audits adherence, and is on the hook when an answer is wrong, close to what the IAPP describes as the modern data-governance officer<Cite refId="iapp-dpo" />, in the agent-flavoured shape a 20 to 200-person company needs.
+
+## The daily rhythm, ten minutes
+
+Ten minutes, first coffee, before standup. Same tab as email triage, pinned. Four items.
+
+Connection health. All configured connectors green? A red connector means evidence is silently not flowing into staging, worse than a noisy failure because the brain will keep answering as though it had current data when in fact it has been frozen since Friday.
+
+Staging queue glance. How many items landed overnight, and is the shape normal? If yesterday averaged 40 and today shows 400, something has changed (a new export script, a re-sync, a bot loop), and you want to know before the Operator drowns.
+
+New source proposals. Has anyone requested a new connector or alias? Do not approve on the spot. Tag, ask for owner and retention, queue for the weekly.
+
+Escalations from the Operator. They flag items they cannot decide alone, "looks like restricted content," "looks like the founder's private draft," "contradicts an entity page we approved last month." Triage, decide, move on.
+
+If the slot is taking longer than ten minutes, something upstream is broken, and the weekly looks at that first.
+
+## The weekly rhythm, 45 to 60 minutes
+
+Pick a recurring slot. Friday morning works for me, before the brain enters the weekend with nobody watching. The Zendesk team-publishing pattern has a similar shape, a regular review cadence with verification rules that flag drift between cycles<Cite refId="zendesk-maintain" />. Six items.
+
+Approved-source drift review. Walk the registry. For each entry, is the owner still at the company, scope still right, has the volume changed in a way that suggests abuse (a Slack channel that became a dumping ground, a Drive folder that grew tenfold). Drift is silent; the weekly catches it.
+
+Retention checks. Items aged past the limit should be expired. The system does this if wired correctly. The weekly confirms it actually ran, because the most embarrassing incident class is "we thought retention was enforced and it was not."
+
+Registry hygiene. New entries from the daily get their fields filled in. Anything still missing is completed or rejected. The registry should never have an entry without a named owner.
+
+Automation rule review. Look at what simple-team connectors auto-promoted in the last seven days. Spot-check ten percent. If you find one wrong promotion, tighten the rule. Auto-promotion is a privilege earned by being right; if it stops being right, demote back to governed.
+
+What went wrong this week, and why. Read the audit log. Any answers a user flagged wrong, any escalations the Operator could not resolve, any source contributing to more than its share of bad answers. Highest-value fifteen minutes of the week, the one most people skip.
+
+Next week's growth plan, one sentence. "Next week I am adding the design-system Confluence space to the product scope, owner is X, retention 365 days." Growth that is announced is governable. Growth that just happens is not.
+
+The Shape Up cool-down concept is the right mental model<Cite refId="shape-up" />, a scheduled non-shipping slot where the work is hygiene, and skipping it looks harmless for a few cycles, until it suddenly does not.
+
+## The monthly rhythm, 90 minutes
+
+Last Friday of the month, 90 minutes blocked. The work that does not survive being broken into 10-minute slices.
+
+Permission audit. Pull the access matrix, cross-check against the company directory. Anyone who has left in the last month, removed today. Anyone who changed teams, scope-adjusted. DAMA-DMBOK guidance treats access review as a recurring data-steward responsibility for exactly this reason<Cite refId="dama-steward" />, the access list drifts faster than people think.
+
+Retention purge sign-off. Look at what was expired this month and confirm the rule is calibrated. If important context is vanishing, lengthen the window. If dead weight is surviving, shorten it.
+
+Source ownership review. Who left, who joined, who changed roles. Departed owners are reassigned or the source is sunsetted. New joiners inherit what they should own, with a short handover.
+
+Restricted-content sweep. Search the wiki for patterns that should never be in it, salary numbers, performance-review phrases, legal-hold flags, named departures. If any turn up, you have a leak path, and the monthly is when you close it.
+
+Next month's growth plan, three to five lines. New sources you intend to bring on, scopes you intend to open or tighten, automation rules you intend to promote or demote. Anyone reading the note six months later should reconstruct what changed and why.
+
+Roughly the cadence ITIL change advisory boards run on for non-emergency changes<Cite refId="itil-change" />, weekly for noise, monthly for structural decisions, every change with a rationale.
+
+## The quarterly rhythm, half a day
+
+Policy review, not maintenance.
+
+Read the four or five page document that defines the role and the rules. Update it. Rules drift because the company drifts; if the policy has not changed in a year, either the company has not changed or you have stopped reading it.
+
+Exclusion list update. Twenty minutes each with HR, legal, finance. Show them the current list, ask "anything new in your function that should be on this." Add what they say. The meeting that prevents a year-three incident.
+
+Automation tier promotion and demotion. Governed connectors that have earned simple-team status get promoted. Simple-team connectors that have lost it get demoted. Weekly is too noisy, yearly too slow.
+
+Brain structure review. The layout that worked for 40 may not work for 60. Are scopes too coarse, too fine, mis-aligned with how the company thinks about itself? Propose changes with a written before/after, circulated for a week before applying.
+
+## A real Tuesday at a 40-person startup
+
+Concrete picture, because abstract rhythms always sound easy.
+
+08:42, coffee, tab open. Two yellow connectors (Notion, Linear) auto-retried overnight, ignore. Staging queue at 73, normal. Two new source proposals, one is a sales rep asking to connect personal Gmail (reject, point to `partnerships@`), the other is engineering wanting a new GitHub repo (accept, ask the lead to confirm scope and retention by Friday, queue for the weekly).
+
+09:01, Operator pings in Slack. "Item flagged restricted-content, customer NPS comment with a named individual, not on the exclusion list but feels off." Owner reads, agrees, marks `redact-and-promote`, notes for the quarterly to expand the exclusion-list pattern to cover named individuals in survey responses.
+
+09:08, daily done. Eight minutes. Back to actual work.
+
+It works because the Owner is making decisions, not doing throughput. The Operator handles volume, the Owner handles judgement. Anthropic's internal-teams write-up describes the same split<Cite refId="anthropic-teams" />, and it is the right shape at the org level too.
+
+## Right looks boring, wrong looks loud
+
+Right looks boring. Daily is ten minutes. Weekly finishes in under an hour. Monthly produces a one-page note anyone in the company could read. The brain answers correctly most of the time, and when it is wrong, the audit log shows why and the next weekly closes the loop.
+
+Wrong looks like one of these.
+
+The weekly got skipped for three weeks because "nothing was on fire," and now the registry has 14 entries with no owner, two connectors have been silently failing, and a Slack channel added in week one has tripled in volume.
+
+The exclusion list has not been touched since launch. HR was never consulted. The brain answers a question about an employee's tenure from a deck someone uploaded six months ago, which had a now-departed colleague's compensation in a footnote.
+
+Every source is implicitly global because scopes were never defined. A junior engineer's chat returns the founder's draft strategy memo.
+
+Auto-promotion was turned on for everything because review was a bottleneck. Rules have never been audited. The brain is citing a vendor's marketing claim about its own product as independent fact.
+
+Every one of these is preventable in 15 minutes a week if the role exists, and not preventable at any price if it does not.
+
+## The first 30 days of a new Brain Owner
+
+Week one is reading. Current registry, current exclusion list (if any), audit log for the last 30 days, every escalation the previous owner left open. Do not change anything. Establish baseline.
+
+Week two is the exclusion list. Sit with HR, legal, finance, the founders. Write the list. Get it signed off. The one structural change you make in your first month, the one that pays back fastest. Anthropic's best-practices docs put the equivalent at the top, what should never be in the agent's read window is a more important question than what should<Cite refId="anthropic-best-practices" />.
+
+Week three is the rhythm. Schedule daily, weekly, monthly, quarterly slots in your calendar, checklists pasted into the event description. Run the first weekly even though you have only been in the seat 14 days. The point is to start the cadence.
+
+Week four is the registry. Walk every entry. Owner current, scope defined, retention set, data classes tagged. Anything missing, fix or delete. By end of week four, you should be able to point at the registry and say "every entry here is mine to defend."
+
+If you cannot finish that in four weeks, your registry is bigger than your team can govern, which is itself a finding worth surfacing.
+
+## When to delegate to a Brain Operator
+
+Simple rule, you delegate volume, you keep judgement.
+
+The Operator runs the daily review queue, processes staging items, tags drift, escalates anything not in the rules. On a 40-person team, half a day a week.
+
+The Owner keeps the registry approvals, exclusion list, retention rules, scope definitions, audit accountability. None of that scales by hiring more Operators, all of it is irreducibly one person's call.
+
+Over-delegated when an Operator is making registry changes without sign-off. Under-delegated when you are personally tagging every staging item and have no time left for policy work.
+
+Notion's guidance on AI knowledge hubs makes the same point about Teamspace owners<Cite refId="notion-hubs" />, curator-of-record is one person per space, operational maintenance is delegated, structure and access rules belong to the curator.
+
+## Common failure modes
+
+Short list, in order of how often I see them.
+
+Skipping the weekly. Number one by a long margin. Nothing is on fire so the slot quietly disappears, and by month three the registry is unrecognisable.
+
+Letting the registry drift. Owners leave, scopes go stale, retention never gets enforced. Within a year you have evidence in the brain nobody can defend.
+
+No exclusion list owner. The list exists in a doc nobody has opened since onboarding. When a new sensitive category appears (a layoff plan, a contested customer matter), it does not get added.
+
+Auto-promotion without audit. Simple-team mode is the right call for low-stakes sources, but only if a human spot-checks weekly. Without the audit, the rules are pure faith, and faith is not a control.
+
+Conflating Operator and Owner. One person does everything, gets buried in the daily queue, never has time for monthly or quarterly, and the policy layer rots. The next incident catches them, and the role gets blamed instead of the staffing model.
+
+## What I would do this week
+
+If you have an AI knowledge base and nobody's job description includes the word "brain," fix that first. Name the role, pick the person, give them the playbook above, put their name next to the registry. You do not need a hire. At a 40-person company, this is one to two hours a week of an existing person's time, plus the discipline to actually take the slots.
+
+If you do not yet have the brain, name the Owner before you turn it on. Exclusion list, scopes, retention, automation level, all easier to set on day zero than to retrofit after evidence has flowed.
+
+If you would rather not build the rhythm scaffolding from scratch, that is what Company Brain Harness ships. Registry, staging queue, audit log, and daily/weekly/monthly checklists baked in, so the Owner gets the cadence for free and the policy decisions stay theirs.
+
+The role does not exist yet in most companies. The work does. The window to name it and give it a rhythm, before the first incident makes the question expensive, is now.

@@ -1,0 +1,187 @@
+---
+title: "What Belongs Outside Your Company Brain: The Exclusion List Every Founder Should Write This Week"
+description: "Before any source flows into an AI knowledge base, write the one-page list of things that must never enter it. Thirty minutes of work, and the cheapest insurance you will ever buy."
+slug: "what-belongs-outside-your-company-brain"
+publishedAt: "2026-06-22"
+updatedAt: "2026-06-22"
+author: "Sabir Moglad"
+category: "Governance"
+keywords:
+  - "what not to put in ai knowledge base"
+  - "ai knowledge base exclusion"
+  - "ai data leakage"
+  - "company brain governance"
+  - "ai exclusion list"
+  - "hr data in ai"
+  - "gdpr data minimisation ai"
+  - "ai knowledge boundaries"
+ogImage: "/cbh-og-image.png"
+references:
+  - id: "samsung-incident"
+    title: "Incident 768: ChatGPT Reportedly Implicated in Samsung Data Leak of Source Code and Meeting Notes"
+    publisher: "AI Incident Database"
+    url: "https://incidentdatabase.ai/cite/768/"
+    date: "2023"
+  - id: "copilot-sharepoint"
+    title: "Why Microsoft 365 Copilot Exposes Poor SharePoint Governance"
+    publisher: "Silicon Reef"
+    url: "https://siliconreef.co.uk/knowledge-base/microsoft-365-copilot-exposes-poor-sharepoint-governance/"
+    date: "2025"
+  - id: "slack-ai-leak"
+    title: "Slack AI Patches Bug That Let Attackers Steal Data From Private Channels"
+    publisher: "Dark Reading"
+    url: "https://www.darkreading.com/cyberattacks-data-breaches/slack-ai-patches-bug-that-let-attackers-steal-data-from-private-channels"
+    date: "August 2024"
+  - id: "knostic-leakage"
+    title: "Data Leakage Happens with GenAI. Here's How to Stop It."
+    publisher: "Knostic"
+    url: "https://www.knostic.ai/blog/ai-data-leakage"
+    date: "2025"
+  - id: "cisco-benchmark"
+    title: "Cisco 2025 Data Privacy Benchmark Study"
+    publisher: "Cisco Newsroom"
+    url: "https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2025/m04/cisco-2025-data-privacy-benchmark-study-privacy-landscape-grows-increasingly-complex-in-the-age-of-ai.html"
+    date: "April 2025"
+  - id: "ico-minimisation"
+    title: "Principle (c): Data minimisation"
+    publisher: "UK Information Commissioner's Office"
+    url: "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-protection-principles/a-guide-to-the-data-protection-principles/data-minimisation/"
+    date: "2025"
+  - id: "hhs-hipaa-ai"
+    title: "Artificial Intelligence and the HIPAA Privacy Rule: A Primer"
+    publisher: "University of Oklahoma College of Law"
+    url: "https://digitalcommons.law.ou.edu/context/fac_articles/article/1648/viewcontent/Tovino_2025_Artificial_Intelligence_and_the_HIPAA_Privacy_Rule.pdf"
+    date: "2025"
+  - id: "nist-rmf"
+    title: "NIST AI Risk Management Framework (AI RMF 1.0)"
+    publisher: "National Institute of Standards and Technology"
+    url: "https://www.nist.gov/itl/ai-risk-management-framework"
+    date: "2023"
+  - id: "echoleak"
+    title: "EchoLeak (CVE-2025-32711): The First Zero-Click Attack on an AI Agent"
+    publisher: "Aim Security"
+    url: "https://www.aim.security/post/echoleak"
+    date: "June 2025"
+---
+
+A founder I worked with last year asked their new AI assistant a casual question, something like "what are we doing about the sales pipeline this quarter?" The reply was confident and well-cited. Three of the citations linked back to a Google Doc that, on closer reading, was a performance improvement plan for a salesperson the founder had been quietly considering letting go. The agent had read the doc because the founder's drive was connected, the folder was visible to the connector, and nobody had told the system "HR documents are off-limits."
+
+That is the failure mode this article is about, and the fix is cheaper than you think.
+
+## The thing nobody writes first
+
+When teams decide to build a company brain (an AI-accessible knowledge base an agent can read across all your tools), they almost always start by listing what should go in. Tickets, docs, transcripts, Slack channels, the CRM, the changelog, code, recordings, the whole shelf. It feels productive. It is also backwards.
+
+The first document you should write is the **exclusion list**. One page, lives in your repo, has a named owner, gets reviewed when sources change. It enumerates the categories of evidence that must never enter the brain, and the reason for each. Everything else is opt-in via a registry (more on that later), but the exclusion list is the boundary that does not move.
+
+If you cannot write this list, you cannot safely run the brain. That is the test, and it takes about thirty minutes.
+
+## Why this matters more in 2026 than it did in 2024
+
+The Cisco 2025 Data Privacy Benchmark Study found that 64% of respondents worry about inadvertently sharing sensitive information through generative AI, while nearly half admit to inputting personal employee or non-public data into the tools anyway<Cite refId="cisco-benchmark" />. That gap is the whole problem. People know it is risky and do it anyway, because the path of least resistance is "give the agent everything and let it figure out what to use."
+
+Real incidents have piled up. Samsung engineers pasted semiconductor source code into ChatGPT three separate times within twenty days of allowing the tool, leading to a company-wide ban in 2023<Cite refId="samsung-incident" />. In August 2024 a prompt-injection flaw in Slack AI let an attacker in a public channel coerce the assistant into leaking data from private channels<Cite refId="slack-ai-leak" />. In June 2025 researchers at Aim Security published EchoLeak, a zero-click vulnerability in Microsoft 365 Copilot that could exfiltrate Microsoft Graph data just by sending the user an email<Cite refId="echoleak" />. A Gartner survey in June 2025 found 40% of IT leaders delayed their Copilot rollout by three months or more because of oversharing, after years of permission sprawl across SharePoint and Teams<Cite refId="copilot-sharepoint" />.
+
+None of these were caused by bad prompts. They were caused by giving an agent access to evidence that should never have been on the table. The agent did what it was told. The problem was the boundary, not the model.
+
+## The categories that should never enter the brain
+
+This is the bare-minimum list. Your team will probably extend it. Do not shorten it.
+
+### HR data, in all forms
+
+Performance reviews, one-on-one notes, PIPs, compensation bands, hiring decisions, exit interviews, references. Anything in BambooHR, Workday, Lever, Greenhouse, Notion HR folders, founder drive folders called "people."
+
+Why dangerous: the agent does not know who is asking. A junior engineer querying "what should I know about Sarah before her code review?" is a natural query, and an agent with access to Sarah's last performance review will cheerfully summarise it. The asker gets information they were never meant to have, the brain has now leaked, and you find out three weeks later when Sarah hears it through a colleague. Microsoft's own guidance documents this exact shape, an HR manager asking Copilot to "analyse employee engagement" can receive salary data and disciplinary records pulled from spreadsheets and Teams chats that were technically accessible but never actively viewed<Cite refId="copilot-sharepoint" />.
+
+### Legal matters in flight
+
+Pending litigation, settlement negotiations, regulatory inquiries, IP disputes, anything attorney-client privileged. Live contracts under negotiation count too, especially clauses your counterparty would benefit from seeing.
+
+Why dangerous: privilege is a legal protection that can be **waived** by sharing the material with the wrong audience. An agent that summarises a privileged memo into a wiki page, where any employee can read it, is a textbook way to waive privilege without meaning to. Once waived, you do not get it back.
+
+### Finance internals and forecasts
+
+Unannounced board materials, fundraising plans, runway models, M&A work, customer-level revenue, undisclosed price changes, cap table movements, pre-announcement layoff models.
+
+Why dangerous: most of this is material non-public information. If you are venture-backed, your investors and board members are reading it, the rest of your team is not. An engineer asking "are we doing well this quarter?" should not get the unfiltered forecast. If you are on a path to public markets, leaking pre-announcement financials through a chat interface ends careers and triggers regulator letters.
+
+### Compensation, separately
+
+I list this on its own because teams treat it as part of HR, then discover it leaks through other paths. Offer letters in the founder's email. The Notion page where someone documented "what we paid Anthropic vs OpenAI last month." The Stripe export with contractor payouts. Pay data does not need to live in your HR system to leak from it.
+
+Why dangerous: pay is the single fastest morale destroyer in a small company. The leaked-salary story is the one I have heard most often, and it almost always traces back to a connector pointed at a drive folder nobody audited.
+
+### Sensitive customer data
+
+PII, payment data, health data, anything covered by GDPR, CCPA, HIPAA, PCI-DSS, or your DPAs. Support transcripts containing bank details. CRM notes where a salesperson typed in someone's home address. Survey responses tagged to identity.
+
+Why dangerous: this is where regulation puts real teeth on you. Under the UK GDPR, Article 5(1)(c) requires personal data to be "adequate, relevant and limited to what is necessary in relation to the purposes for which they are processed"<Cite refId="ico-minimisation" />. That is the data minimisation principle, and feeding an agent every customer record because "it might be useful someday" fails the test on its face. Under HIPAA, an AI system processing Protected Health Information has to meet the same Privacy and Security Rule requirements as any other system handling PHI, and HHS issued the first major Security Rule update in twenty years in January 2025 to reflect exactly this kind of risk<Cite refId="hhs-hipaa-ai" />. GDPR fines top out at €20 million or 4% of global annual turnover, whichever is higher<Cite refId="knostic-leakage" />. None of that math survives a casual "let the agent index our CRM" decision.
+
+### Secrets and credentials
+
+API keys, database passwords, .env files, OAuth tokens, SSH keys, signed certificates, customer-provided credentials, internal admin runbooks that contain step-by-step access procedures.
+
+Why dangerous: the agent will gladly read a secret out of a file, paste it into a chat reply, or even include it in a synthesised "onboarding guide." Once the secret is in the wiki, it is in every backup, export, and search result. Even if the original file is rotated, the wiki copy lives on. I have watched this happen, an agent quoted a Stripe test key in a chat answer because it was in an old README.
+
+### Personal accounts and inboxes
+
+A founder's personal Gmail, a co-founder's personal Notion, an engineer's private GitHub repos, a sales lead's WhatsApp. People mix work and life in these channels, often deliberately. The boundary between "work email I happen to send from my personal account" and "actual personal correspondence" is invisible to a connector.
+
+Why dangerous: the agent does not know the conversation about your divorce sat one thread above the Q3 strategy chat. Connect the personal account and both get indexed. Personal accounts also have weaker auth, no SSO, no audit trail, and no path to revoke when the person leaves.
+
+### Drafts, DMs, and unsent work
+
+Notion drafts in someone's private space. Slack DMs and group DMs. Loom recordings marked private. Gmail drafts written and never sent. Bullet points in a personal notes app.
+
+Why dangerous: a draft is a thing someone decided was not ready for an audience. Indexing it gives it an audience. The "we may need to let X go in Q3" sentence buried in a strategy draft is a real example, I have seen the equivalent twice. Drafts contain the half-formed worst version of every thought your team had this quarter. The brain should learn from the published version, not the typing.
+
+## A good exclusion list is one page
+
+Not a policy document. Not a wiki section with sub-pages. One page, in your repo, that any new engineer can read in three minutes. The shape that works:
+
+A header. A one-paragraph statement of intent ("these source classes are never to be connected to the company brain, regardless of who asks"). A bulleted list of categories, each with one sentence on **why**, and one or two example sources by name. A line at the bottom naming the **owner** (a person, not a team) and the **review cadence** (every quarter is fine). Done.
+
+One page matters for operational reasons. If the exclusion list is twelve pages, no one reads it, and a new engineer connecting Pipedrive on a Tuesday will not pause to check whether they are about to violate it. If it is one page pinned in the repo, they will glance at it, and that glance is the whole point.
+
+## Enforcement happens at the registry, not the prompt
+
+This is where most write-ups get the implementation wrong. They assume the exclusion list is something you put in the system prompt, or in the agent's instructions, or in a "policy" the agent reads before answering. None of that works. By the time the prompt runs, the agent has already been given read access to the evidence.
+
+The exclusion list has to be enforced **before the connector indexes the source**. That is the registry layer, where every source is named individually (not "Slack" but `#product`, not "Gmail" but `partnerships@founder.com` on a 90-day window) with an owner, an approval status, a data class, and a scope. The registry consults the exclusion list at registration time. If you try to register `hr-folder/` and the exclusion list says HR is blocked, the registration fails. The agent never sees the folder, because the connector was never given the path.
+
+This ordering is the entire game. The schema (`CLAUDE.md` or `AGENTS.md` that tells the agent how to write entries) is for the agent. The registry is the **permission boundary on the reader**. The exclusion list governs the registry. If you only enforce policy at the prompt level, you are asking an agent to be its own bouncer, and that is not a job an LLM can be trusted to do. NIST's AI Risk Management Framework treats system boundaries and data-flow mapping as the first thing you do in the MAP function, before any of the model behaviour matters<Cite refId="nist-rmf" />. The exclusion list is how you operationalise that.
+
+## What the counterpart "approved with scope" list looks like
+
+If exclusion is the boundary that does not move, the **approved-with-scope** list is the daily work. Every source allowed into the brain comes with five fields, the same five every time. Who owns it. Who approved it. What data class it carries (public, internal, restricted). What retention applies (30, 90, indefinite). What scope of the brain it routes to (general, product-only, leadership-only).
+
+The two lists describe the entire surface. If a source is on neither, it is in limbo and the agent cannot see it. If it is on the exclusion list, it is permanently out. If it is on the approved list, the registry knows what to do with it.
+
+I have seen teams try to skip the approved-with-scope discipline and just enumerate exclusions. It does not hold. Within a quarter someone connects a new tool, the exclusion list has not been updated, and the new source defaults to "approved, global, indefinite" by sheer omission. The two lists exist together or neither works.
+
+## The thirty-minute exercise
+
+Here is the version I would actually do, if I were doing it this week.
+
+Open a new file in your main repo, call it `exclusion-list.md`. Set a thirty-minute timer.
+
+Write the intent paragraph first. One sentence on what the document is, one on why. Three lines is enough.
+
+List the eight categories above. For each, write one sentence on the **why** in your team's own language, then name two or three actual sources from your stack. Not "HR systems," your actual Workday instance and your actual Notion HR folder. Not "secrets," your actual `.env` files and your 1Password vaults. Specificity is what makes the document enforceable later, and naming the source as it appears in your tooling is what lets the registry layer refuse it.
+
+Add an owner line at the bottom. A person, with a calendar pointer, not "the security team." If no one will own it, the document is decorative.
+
+Commit it. Open a draft PR. Ask one other person to read it before merging. If they immediately think of a category you missed, that is what this exercise is for.
+
+Half an hour. The cheapest insurance you will ever buy against a class of incident that is documented enough by now that "we didn't think of it" has stopped being a defensible posture.
+
+## What I'd do this week if I were you
+
+If you have already started building a company brain, write the exclusion list today, before the next source connects. You do not need to wait for the wiki to mature or the team to be onboarded. The list is upstream of all of that.
+
+If you have not started, write the exclusion list first, then the registry, then staging, then the wiki. In that order. Reversing it is the most expensive mistake in the entire pattern, and the one I have watched teams make repeatedly. The brain is easy to build. The clean-up after a leak is not.
+
+Two final notes. An exclusion list is not a substitute for least-privilege access on the underlying tools. Lock down SharePoint, prune Notion shares, rotate stale OAuth grants, do all of that anyway. The exclusion list is a second, coarser line of defence designed to catch the cases where the first one fails. Both are required. The list is also a living document. Re-read it every quarter, when a major tool is added, and after any incident. Drift is the silent failure mode, a source correctly excluded in 2024 can quietly become accessible in 2026 because someone changed a folder permission and nobody re-checked.
+
+The agent will do what it is told. Make sure that does not include the things you would never tell a stranger. That is the whole brief.

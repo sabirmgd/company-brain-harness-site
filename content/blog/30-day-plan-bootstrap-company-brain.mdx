@@ -1,0 +1,224 @@
+---
+title: "From Onboarding Doc to Org Operating System: A 30-Day Plan to Bootstrap Your Company Brain"
+description: "A week-by-week plan for building a governed company brain in 30 days. Roles, sources, exclusions, daily cadence, and the failure modes I see teams hit most."
+slug: "30-day-plan-bootstrap-company-brain"
+publishedAt: "2026-06-22"
+updatedAt: "2026-06-22"
+author: "Sabir Moglad"
+category: "Playbook"
+keywords:
+  - "how to build company brain"
+  - "company brain 30 day plan"
+  - "ai knowledge base bootstrap"
+  - "claude code wiki team"
+  - "ai memory rollout"
+  - "brain owner role"
+  - "karpathy llm wiki team"
+  - "ai governance smb"
+ogImage: "/cbh-og-image.png"
+references:
+  - id: "karpathy-gist"
+    title: "llm-wiki.md"
+    author: "Andrej Karpathy"
+    url: "https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f"
+    publisher: "GitHub Gist"
+    date: "April 2026"
+  - id: "yc-rfs-2026"
+    title: "Requests for Startups, Summer 2026"
+    publisher: "Y Combinator"
+    url: "https://www.ycombinator.com/rfs"
+    date: "2026"
+  - id: "yc-rfs-summary"
+    title: "YC Summer 2026 Requests for Startups: All 15 Ideas"
+    publisher: "The VC Corner"
+    url: "https://www.thevccorner.com/p/yc-summer-2026-requests-for-startups-ideas"
+    date: "2026"
+  - id: "watkins-first-90"
+    title: "The First 90 Days: Proven Strategies for Getting Up to Speed Faster and Smarter"
+    author: "Michael D. Watkins"
+    publisher: "Harvard Business Review Press"
+    url: "https://hbr.org/books/watkins"
+    date: "2013"
+  - id: "innobu"
+    title: "Karpathy's LLM Wiki: Second Brain and the Enterprise Reality Check 2026"
+    publisher: "Innobu"
+    url: "https://www.innobu.com/en/articles/karpathy-llm-wiki-second-brain-enterprise-reality.html"
+    date: "2026"
+  - id: "glean-deploy"
+    title: "Glean Implementation Partner, Enterprise AI Search Expert"
+    publisher: "JOURN3Y"
+    url: "https://www.journ3y.com.au/products/glean"
+    date: "2026"
+  - id: "ai-search-guide"
+    title: "AI Enterprise Search: The Complete Guide for IT and Knowledge Leaders"
+    publisher: "GoSearch"
+    url: "https://www.gosearch.ai/blog/ai-enterprise-search-guide/"
+    date: "2026"
+  - id: "startupgtm-90min"
+    title: "Build Karpathy's Self-Updating AI Knowledge Base in Just 90 Minutes"
+    publisher: "StartupGTM Substack"
+    url: "https://startupgtm.substack.com/p/self-updating-ai-wiki-knowledge-base"
+    date: "2026"
+  - id: "fbd-30day"
+    title: "Your 30-Day AI Implementation Plan, Week-by-Week"
+    publisher: "FBD Agency"
+    url: "https://fbd.agency/blog/perspective/30-day-ai-implementation-plan/"
+    date: "2026"
+  - id: "anthropic-claude-md"
+    title: "Memory and CLAUDE.md"
+    publisher: "Anthropic / Claude Code Documentation"
+    url: "https://docs.claude.com/en/docs/claude-code/memory"
+    date: "2026"
+---
+
+When a founder tells me they want a company brain, the first thing I ask is, "Who owns it on day 31?" Usually there isn't an answer. The plan is to set the thing up, point an agent at the Google Drive, and carry on. That plan fails in the same shape every time. The brain gets built in a weekend, drifts for three weeks, picks up something it shouldn't, and quietly gets unplugged.
+
+A company brain is not software you install. It is a small operating ritual that runs every week. The software is the easy part. This piece is the 30-day plan I use to bootstrap it the boring way, so the thing survives past day 31.
+
+I am going to assume you have read Karpathy's gist<Cite refId="karpathy-gist" /> and broadly agree with the three-layer pattern. If not, read it first and come back. I am also going to assume that for any team larger than one, the gist needs a [source-approval layer wrapped around it](/blog/beyond-karpathys-llm-wiki-source-approval), because the rest of this plan is built on that.
+
+Y Combinator listed "company brain" as one of its Summer 2026 Requests for Startups<Cite refId="yc-rfs-2026" />, calling it "a new primitive needed for every company to run on AI automation"<Cite refId="yc-rfs-summary" />. Right framing. A primitive still has to be installed.
+
+## Week 0, the day you decide
+
+Before week one starts, you have three decisions to make. They take an afternoon. Do them in this order.
+
+**Pick a brain root.** This is the physical location where the wiki lives. Four reasonable options, with real tradeoffs.
+
+A **git repository** (private, on your existing host) is what I default to. Version history is free, diffs are reviewable, branching is native, and any agent that works with code works with the brain. The cost is that non-technical teammates need a path in (a web UI or a small editor).
+
+A **Google Drive folder** is friendliest to ops and sales, but version history is shallow, diffs are bad, and most agent tooling treats Drive as an import source, not a writable home.
+
+A **shared volume on a server** works if you already run infrastructure and have permissioning sorted at the OS level. Most small teams do not, and shouldn't pretend they do. A **local directory on one person's laptop** is fine for a one-person test. It is not a company brain.
+
+My recommendation: start with a private git repo on whatever host you already use. You can always promote later. You cannot easily un-scatter.
+
+**Pick a Brain Owner.** One named human. Not a committee, not "the AI team", not "whoever has time on Friday." A real person whose calendar shows a recurring 30-minute weekly slot called "Brain review." The Brain Owner runs the [daily, weekly, and monthly cadence](/blog/brain-owner-playbook-daily-weekly-monthly) and is the human who decides what gets promoted, archived, or rejected. If you cannot name the person on day zero, you are not ready to start. Pick the person before you pick the tool.
+
+**Write the exclusion list.** Thirty minutes. One markdown file. The categories of evidence that will never enter the brain, full stop. HR records, salary data, legal-privileged material, finance close numbers before they're public, sensitive customer data, anything under NDA you didn't yourself sign. I go deeper on this in [what belongs outside your company brain](/blog/what-belongs-outside-your-company-brain), and I keep saying it because every team that skips this step pays for it later. It is the cheapest hour you'll spend on the entire project, and it has to come before any evidence flows. Not after.
+
+<Callout type="warning">
+If you cannot complete those three decisions in an afternoon, stop. The plan won't work. The blocker isn't the tool, it's that the org doesn't have a person who can own this. Find the owner first.
+</Callout>
+
+## Week 1, foundations
+
+The whole job this week is to get the skeleton in place and resist the urge to feed it everything. Most failed company-brain projects fail right here, by trying to ingest the company in a weekend.
+
+**Day 1 to 2. Stand up the structure.** Install the harness or scaffold the wiki manually. The Karpathy three-layer setup (`raw/`, `wiki/`, schema file) is the floor, and as covered in the [source-approval piece](/blog/beyond-karpathys-llm-wiki-source-approval) you want two more layers on top, a `staging/` folder the agent cannot read, and a review queue the Brain Owner works through. A weekend afternoon covers the directory structure, the `.gitignore` rules, and a first commit with nothing in it.
+
+**Day 3 to 4. Write the schema.** The `CLAUDE.md` or `AGENTS.md` file that tells the agent how your wiki is shaped, what folders mean, what to do on ingest, and what to lint. I compare these formats in [AGENTS.md vs CLAUDE.md vs SKILL.md](/blog/agents-md-vs-claude-md-vs-skill-md-teams); for a team brain, AGENTS.md is the source of truth and CLAUDE.md a thin pointer. Anthropic's docs<Cite refId="anthropic-claude-md" /> cover file mechanics but stay silent on team governance, which is where you write your own conventions.
+
+The schema should fit on one screen. If it doesn't, you are over-specifying. Keep it boring: file naming, folder meanings, canonical sources, a one-paragraph house style, link to the exclusion list.
+
+**Day 5. Register the first three sources.** Three. Not thirty. Pick low-risk, high-signal, public-by-default things. My defaults:
+
+1. A public engineering wiki or docs site you already maintain.
+2. The product roadmap doc, current quarter only.
+3. A single Slack channel that's already general-broadcast, like `#announcements` or `#changelog`.
+
+Each one gets a row in the source registry with five fields: owner, approver, data class, retention window, scope. The Brain Owner approves all three before the agent sees them. This is the moment the source-approval discipline becomes muscle memory, or doesn't.
+
+**Weekend. Stop.** Do not add a fourth source. Do not "just try connecting Gmail to see what happens." The plan depends on you running the brain on three sources for a full week before you touch the registry again. The teams that succeed wait. The teams that fail say "we'll just add this one more thing." That one more thing is how an HR folder ends up in `raw/` on day 9.
+
+<Callout type="insight">
+The point of week 1 is not to make the brain useful. It is to make sure the harness is real. You should end the week with three approved sources, an exclusion list, a schema, and a named owner. Nothing more.
+</Callout>
+
+## Week 2, first real use
+
+**Day 8 to 10. Invite one Brain Operator.** A second human, adjacent to the Brain Owner, who can take over if the Owner is on holiday. Walk them through the [daily 10-minute ritual](/blog/brain-owner-playbook-daily-weekly-monthly): open the review queue, accept or reject what the agent proposed overnight, eyeball the log, close it. Ten minutes. Done before the first meeting.
+
+The Operator is redundancy. The brain breaks the moment one person carries the whole thing in their head. Two humans, minimum, from week two onwards.
+
+**Day 11. Run the first real staged-evidence review together.** By now the agent has proposed somewhere between ten and forty items for promotion. Walk through them with the Operator. Promote two or three. Reject at least one, on purpose, so the Operator sees what rejection looks like and the reason lands in the log. Rejections are the most important entries in `log.md` for the first month, they tune the registry.
+
+**Day 12 to 14. Start asking the brain real questions.** Not setup questions, operational ones. "What's the current spec for our pricing API?" "Who owns the auth service?" "What did we decide about the November roadmap?" Note where answers are weak. The weakness is information. It tells you exactly which source to add next, and only that source.
+
+This is the inversion everyone misses. You don't pick sources by looking at the org chart. You pick the next source by finding the question the brain got wrong, then identifying the single piece of evidence that would have answered it. Add that one. Approve it. Wait two days. Ask the same kind of question again.
+
+Same loop Karpathy describes for personal research<Cite refId="karpathy-gist" />, just one source at a time at team pace. The startup-GTM write-up<Cite refId="startupgtm-90min" /> claims you can do all of this in 90 minutes. You cannot, not for a company.
+
+## Week 3, expansion
+
+You've earned the right to add more sources. Carefully.
+
+**Add three to five new sources over the week.** Each one goes through the registry. Each one gets an owner and an approver. None of them come in as "the whole of Slack" or "all of Notion." Pick the specific channel, the specific space, the specific Drive folder. The discipline from [source approval](/blog/beyond-karpathys-llm-wiki-source-approval) is what keeps the brain healthy, and week three is when you find out whether the discipline holds under pressure.
+
+**Bring in two or three Team Members.** Not as reviewers, as users. Show them how to propose a source ("I think the design system docs should be in the brain") and how that proposal turns into a registry entry the Operator can act on. The brain is now plural. Watch what they ask it. The questions a real user asks are different from the questions the Brain Owner asks, and that delta is where coverage gaps live.
+
+**First weekly review by the Brain Owner.** Thirty minutes on Friday. Look at the log. What got promoted, what got rejected, what got revised. Are there patterns in the rejections? If three rejections this week were "this evidence had a salary number in it", the exclusion list needs a new rule. The log is the input to the weekly review, the review is the input to the registry and the exclusion list. That is the operating loop.
+
+**Start drafting restricted scopes.** Not everything in the brain should be readable by everyone. HR-adjacent material (the parts you didn't already exclude), exec-only strategy work, anything legally sensitive, gets routed to a scope that the general team's read access does not cover. Draft the scope definitions this week. You don't have to enforce them yet, you just need them written down before you accidentally need them.
+
+## Week 4, operating rhythm
+
+By now the brain has a heartbeat. Week four is about making the heartbeat regular.
+
+**Run the full daily, weekly, and monthly cadence.** The [Brain Owner Playbook](/blog/brain-owner-playbook-daily-weekly-monthly) details what each one looks like. The daily ritual is ten minutes. The weekly review is thirty. The monthly review, which falls at the end of this week, is an hour and is the most important meeting on the Brain Owner's calendar.
+
+**Run the first monthly review.** Five questions, in order.
+
+1. What got promoted in the last four weeks that shouldn't have? Archive it.
+2. What questions did the brain answer wrong? List them.
+3. What sources are needed to answer those questions? Add to the registry backlog.
+4. What's in the exclusion list that turned out too broad? Refine it.
+5. Does the Brain Owner still want to be the Brain Owner? If not, name the successor now.
+
+The fifth question matters more than the other four. The role is real work, and people burn out on it quietly if no one asks.
+
+**Decide your mode.** After 30 days you should know whether the brain stays in **governed mode** (every source approved, every promotion reviewed) or graduates parts of itself to **simple-team mode** (low-risk areas like `#changelog` auto-promote). My bias is to stay governed for the first 90 days. The discipline is cheap. Un-doing a bad promotion that everyone now believes is not.
+
+**Audit.** Walk the wiki. What's in there that shouldn't be? What's missing that should be? An afternoon. Do it.
+
+## What good looks like at the end of 30 days
+
+Concrete markers, in case you want something to check yourself against.
+
+- 10 to 25 approved source instances in the registry. Not 100, not 5.
+- An exclusion list, written, enforced, refined at least once.
+- One named Brain Owner with at least one named Brain Operator backup.
+- A daily ritual that takes 10 minutes and is actually being done.
+- A weekly review on the Brain Owner's calendar as a recurring event.
+- The first monthly review completed and minuted.
+- A wiki with somewhere between 50 and 150 promoted entity or concept pages.
+- Three or four real questions answered well from the brain in the last week.
+- Zero incidents involving HR, legal, or finance leakage.
+
+If you hit eight of those nine, you are in good shape. If you hit fewer than six, something in the plan got compressed and the next 30 days need to recover it. Usually it's the daily ritual that quietly stops.
+
+## What 30 days does not get you
+
+Set this expectation honestly, because existing marketing around company brain tools encourages founders to expect more than 30 days can deliver.
+
+A 30-day bootstrap gets you a working, governed, useful brain in one team. It does not get you:
+
+- **Full coverage** of every system. That is a 90 to 180 day timeline, one source at a time.
+- **Full automation.** The brain still depends on a human reviewer for promotions, by design. If your goal is zero-touch, you're building a different thing, and you should re-read the [source-approval piece](/blog/beyond-karpathys-llm-wiki-source-approval).
+- **Org-wide adoption.** That is a culture problem, not a tooling one. Watkins' "First 90 Days"<Cite refId="watkins-first-90" /> is honest about this: real adoption follows real value, and real value takes 60 to 90 days of consistent operation to demonstrate. Glean's enterprise deployments run 6 to 12 weeks<Cite refId="glean-deploy" /> and that's just the install.
+
+The fbd.agency 30-day plan<Cite refId="fbd-30day" /> sets similar limits. The realistic shape, across every enterprise rollout I've looked at<Cite refId="ai-search-guide" />, is "useful in one team in a month, useful in the org in a quarter."
+
+## The four ways 30 days goes wrong
+
+Patterns I see in teams that hit week 4 with no working brain.
+
+**Too many sources, too fast.** The most common failure by a wide margin. Founder sees the harness running on three sources in week one and gets impatient. By day 10 they've connected all of Slack and all of Drive. Agent drowns in noise, review queue overflows, Operator stops opening it, brain turns into confused autocomplete. Fix: add one source per question, not one source per appetite.
+
+**Skipping the exclusion list "because we'll do it later."** Later never comes. Or rather, later comes the morning after the agent surfaces a salary number to a junior engineer who asked a benign-sounding question, and you spend two weeks doing damage control. The exclusion list takes 30 minutes. Do it before any evidence flows. Covered in detail in [the exclusion list piece](/blog/what-belongs-outside-your-company-brain).
+
+**One person does both roles and writes most of the content.** Owner = Operator = main contributor. Works for two weeks. By week 3 they are tired. By week 5 they are on holiday and nothing runs. The Innobu enterprise critique<Cite refId="innobu" /> names this "single-operator brittleness." Two humans, minimum, from week two. Not optional.
+
+**No weekly review, so the registry drifts.** Without the weekly thirty minutes, rejections never feed back into the exclusion list, the question-failure log never produces new approved sources, the brain ossifies on whatever was true in week one. Two months in, no one trusts it.
+
+## What I'd do if I were starting Monday
+
+If you're reading this on a Sunday evening and want to know what to do tomorrow, here is the sequence.
+
+Monday morning, pick the Brain Owner and put the recurring meeting on their calendar. Monday afternoon, write the exclusion list in a single markdown file and share it with the leadership team for objections by Wednesday. Tuesday, pick the brain root and stand up the empty repo. Wednesday, write the schema file, one screen, no more. Thursday, register your first three sources, all low-risk. Friday, do nothing. The brain runs on three sources over the weekend, and you start week two with something to actually review on Monday.
+
+That's it. Five working days, no heroics. The 30-day plan is just that sequence held with discipline for four more weeks. The brain isn't the magic. The discipline is.
+
+If you'd rather not assemble the harness from scratch, that's what Company Brain Harness ships. The registry, staging, review queue, exclusion routing, and the schema files come pre-wired so you can spend day one on the decisions (owner, root, exclusions) instead of on plumbing. The wiki itself stays yours to shape. The harness is the part we've made deterministic so the discipline has a place to live.
+
+The hardest part of all of this is not technical. It is naming the person who owns it on day 31. Do that first, and the rest of the plan more or less runs itself.

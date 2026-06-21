@@ -1,0 +1,197 @@
+---
+title: "Beyond Karpathy's LLM Wiki: Why Your Company Brain Needs a Source-Approval Layer"
+description: "Karpathy's LLM wiki gist hit 5,000 stars in two weeks. Almost nobody is asking the question that matters the moment a second person joins the wiki: who approves what the agent writes back?"
+slug: "beyond-karpathys-llm-wiki-source-approval"
+publishedAt: "2026-06-22"
+updatedAt: "2026-06-22"
+author: "Sabir Moglad"
+category: "Pattern"
+keywords:
+  - "karpathy llm wiki"
+  - "llm wiki for company"
+  - "claude code wiki"
+  - "company brain"
+  - "source approval"
+  - "AI knowledge base governance"
+ogImage: "/cbh-og-image.png"
+references:
+  - id: "karpathy-gist"
+    title: "llm-wiki.md"
+    author: "Andrej Karpathy"
+    url: "https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f"
+    publisher: "GitHub Gist"
+    date: "April 2026"
+  - id: "mindstudio"
+    title: "What Is Andrej Karpathy's LLM Wiki? How to Build a Personal Knowledge Base With Claude Code"
+    publisher: "MindStudio Blog"
+    url: "https://www.mindstudio.ai/blog/andrej-karpathy-llm-wiki-knowledge-base-claude-code"
+    date: "2026"
+  - id: "innobu"
+    title: "Karpathy's LLM Wiki: Second Brain and the Enterprise Reality Check 2026"
+    publisher: "Innobu"
+    url: "https://www.innobu.com/en/articles/karpathy-llm-wiki-second-brain-enterprise-reality.html"
+    date: "2026"
+  - id: "lucasastorian-impl"
+    title: "llmwiki: Open Source Implementation of Karpathy's LLM Wiki"
+    author: "Lucas Astorian"
+    url: "https://github.com/lucasastorian/llmwiki"
+    publisher: "GitHub"
+    date: "2026"
+  - id: "anthropic-claude-md"
+    title: "Memory and CLAUDE.md"
+    publisher: "Anthropic / Claude Code Documentation"
+    url: "https://docs.claude.com/en/docs/claude-code/memory"
+    date: "2026"
+  - id: "memex"
+    title: "As We May Think"
+    author: "Vannevar Bush"
+    publisher: "The Atlantic"
+    url: "https://www.theatlantic.com/magazine/archive/1945/07/as-we-may-think/303881/"
+    date: "July 1945"
+---
+
+In April 2026, Andrej Karpathy published a 1,200-word GitHub gist called `llm-wiki.md`<Cite refId="karpathy-gist" />. Two weeks later it had crossed 5,000 stars and over 4,000 forks. There are now dozens of open-source implementations of it<Cite refId="lucasastorian-impl" />, several SaaS products positioning around the pattern, and a steady drip of "how I built mine" write-ups on Substack and Medium.
+
+I've read most of them. Almost none of them ask the one question that matters the moment a second person joins the wiki:
+
+**Who approves what the agent writes back?**
+
+That is the question this article is about.
+
+## What the gist actually says
+
+Karpathy's pattern is small, and that's part of why it's spread so fast. Three layers.
+
+The first is **raw sources**, immutable. Articles, papers, transcripts, data files. The agent reads them but never modifies them.
+
+The second is **the wiki**, a directory of markdown files that the agent owns. Entity pages, concept pages, summaries, comparisons, syntheses, all of it written by the agent.
+
+The third is **the schema**, a single configuration file (usually `CLAUDE.md` or `AGENTS.md`) that tells the agent how the wiki is structured, what conventions to follow, and what maintenance workflows to run<Cite refId="anthropic-claude-md" />.
+
+The agent has three operations. `ingest` reads a new source, writes summaries and entity pages, and updates the index and log. `query` answers a question with citations, and can file the answer back as a permanent page. `lint` runs periodic health checks for contradictions, broken links, orphan pages, stale claims.
+
+Two files glue the whole thing together. `index.md` is a content catalog, organised by category, updated on every ingest. `log.md` is an append-only chronological record with consistent prefixes so any agent or person can reconstruct what happened, in what order, and why.
+
+The line from the gist that everyone quotes:
+
+> The tedious part of maintaining a knowledge base is not reading or thinking. It's bookkeeping.
+
+That's the insight. LLMs do bookkeeping, humans curate sources and direct analysis. Karpathy's own example is a research wiki on a single topic, around 100 articles, 400,000 words, all written by the agent. He traces the lineage of the idea back to Vannevar Bush's 1945 Memex<Cite refId="memex" />, which imagined exactly this kind of associatively-linked personal knowledge system, maintained patiently by its owner.
+
+If you've not yet read the gist, do. It's twelve hundred words, and it changed how I think about knowledge work.
+
+## Why it works for one person
+
+When you are the only user, you are also the only writer. You decide what goes into `raw/`. You decide what questions to ask. You decide what gets filed back. There is no governance problem, because you are the governance.
+
+The MindStudio write-up<Cite refId="mindstudio" />, which is now one of the most-shared interpretations of the pattern, says this plainly:
+
+> Don't let perfect be the enemy of useful. Dump rough notes into `/inbox`, then periodically ask Claude to help you clean them up.
+
+That works at one user. It does not survive a second.
+
+## What changes when a team uses it
+
+Picture a 25-person company. The product team has a shared wiki built on Karpathy's pattern, same three layers, same agent. Three things happen in week one.
+
+A sales rep drops an email thread into `raw/`. Inside it: the customer's name, two competitors mentioned by name, and an offhand comment about a competitor's pricing that the rep heard at a conference and never verified. The agent does its job. It extracts an entity page about the competitor, summarises the pricing claim, links it from `index.md`. Two days later an engineer asks Claude what that competitor charges. Claude answers with the unverified number, sourced cleanly to the agent's own wiki page, which traces back to a sales rep's secondhand claim from a conference hallway.
+
+An ops manager drops their HR folder. Six months of performance reviews. The agent does what the schema told it to do, it extracts entity pages for every named employee, including notes from one-on-ones that the employee never saw. A junior engineer asks Claude about a colleague to prep for a code review. Claude answers from the entity page.
+
+A founder drops a draft strategy document into `raw/`. Somewhere in the third paragraph is the sentence "we may need to let X go in Q3." The agent files it. Anyone in the company with read access to the wiki can now find it through a single query.
+
+None of these are agent failures. The agent did exactly what Karpathy's pattern says it should do. The failure is upstream, the pattern was never designed to ask "should this evidence be in here at all?" before the agent reads it.
+
+## The single missing layer
+
+Karpathy's pattern has three layers. Production teams need a fourth.
+
+Call it the **source-approval layer**. It sits between raw evidence and the agent's read window, and its job is to answer one question for every piece of evidence:
+
+> Should this source be available to the brain at all, and if so, with what scope, retention, and access?
+
+A real source-approval layer has four moving parts. None of them are technically hard. All of them are missing from every popular write-up of the pattern I've come across.
+
+### 1. The registry
+
+Every source is named individually. Not "Slack" but `#product` in the main workspace. Not "Gmail" but `partnerships@founder.com` on a 90-day window. Not "the CRM" but Pipedrive deals and contacts read-only, with sales conversation notes excluded by default.
+
+A connector type is too broad to govern. A specific instance is the right unit. The registry holds one entry per instance, with five fields: who owns it, who approved it, what data classes it can carry, what retention applies, and what scope of the brain it routes to.
+
+If the registry doesn't exist, every source is implicitly approved and implicitly global. That is the default failure mode, and the one I see teams fall into most.
+
+### 2. Staging
+
+Raw evidence lands in a private staging area, not directly in `raw/`. The agent cannot read staging. Only humans and a deliberate review workflow can.
+
+This is the part that breaks the most intuitions. People assume staging is for "draft notes," when in fact staging is for **everything** the registry is willing to accept but a human has not yet promoted. An email thread, a Slack export, a meeting transcript, a calendar event, a CRM dump, all of it lands in staging first. The agent cannot synthesise, summarise, or extract from material it cannot see.
+
+The reason is unglamorous. Most evidence is fine. Some evidence is dangerous. You do not know which is which until a human looks. Staging makes the "until a human looks" step physically required, instead of socially expected.
+
+### 3. The review queue
+
+Items in staging surface as proposals. "Extract this email as a customer-insight note." "Promote this meeting recording as a product decision." "Reject this transcript because it contains a salary number." A reviewer accepts, rejects, or revises.
+
+The review queue is where Brain Operators do most of their work. Not writing the wiki, reviewing what the agent wants to write. The agent drafts, the human signs off, the change moves into the curated `brain/`. Same `index.md` and `log.md` discipline as Karpathy's gist, same lint operation. Just a different write-access model.
+
+The Innobu enterprise critique<Cite refId="innobu" /> is the only piece I've found in the top 10 results for any related query that names this gap directly. They write:
+
+> Build in approvals instead of letting the agent write autonomously. A pull-request model with human sign-off is a good template here.
+
+That's the right instinct. The piece stops at the principle and doesn't ship the implementation. Most other write-ups skip approval entirely or hand-wave it as a sentence-long disclaimer at the end.
+
+### 4. The exclusion list
+
+Some prefixes never enter the brain at all. HR, legal, finance, compensation, sensitive customer records, secrets. These are blocked at the registry, not relied upon to be filtered later.
+
+The exclusion list is the single cheapest piece of work in the entire setup. It takes thirty minutes. It is also the thing every team postpones, and the thing every team eventually regrets postponing.
+
+## The four-layer model, with a worked example
+
+The new shape is: `raw sources` → `staging` → `review` → `wiki` → `schema`.
+
+Karpathy's three layers still exist. The two new layers in front, plus the registry and exclusion list that define them, are what make the pattern safe for multiple humans.
+
+Take the three week-one scenarios from earlier and run them through the new shape.
+
+The sales rep's email thread. The registry says `partnerships@` is an approved source, scoped to deal-related extractions only. It lands in staging. The review queue surfaces it with a proposal: "competitor pricing claim, single source, unverified." A reviewer marks it `needs-verification` and assigns it. It does not enter the wiki. The engineer asking about competitor pricing two days later gets either "no verified data" or "single unverified mention, needs confirmation." Not a confidently-cited hallucination.
+
+The ops manager's HR folder. The registry rejects the source on import, because HR is on the exclusion list. The folder never reaches staging. No employee entity pages get written, no junior engineer ends up reading their colleague's one-on-one notes through a friendly chat interface.
+
+The founder's strategy draft. The registry says the strategy Google Drive is approved. The draft lands in staging. The review queue flags the sentence containing "let X go" as restricted-content. The reviewer either redacts the paragraph before promotion, or files the document to a restricted scope that the general team's read access does not cover.
+
+Same agent. Same wiki. Same Karpathy pattern underneath. The harness around it is what changed.
+
+## The schema isn't the answer either
+
+A reasonable objection is, can't all of this be solved by writing a better `CLAUDE.md`?
+
+In theory, sort of. In practice, no.
+
+The schema is for the agent. It tells the agent how to write a good entity page, what folders mean, what to do on `ingest`, how to lint. The schema cannot enforce "do not read this email" because the agent has already been given read access by the time the schema runs. The schema is a contract with the writer, not a permission boundary on the reader.
+
+Source approval is enforced before the agent gets the read. By the time the schema instructs the agent to "synthesise an entity page," the registry has already decided what evidence is even on the table. That ordering is the whole point.
+
+## What Karpathy left out on purpose
+
+Worth saying clearly. The gist is not wrong. Its closing line is *"the document is intentionally abstract, designed for adaptation."* It is a personal-knowledge pattern, and at one user the author is the registry, the staging, the review queue, and the exclusion list, all in one head. That works perfectly.
+
+The pattern does not fail in production. It stops where the production work begins. Single-user pattern, ship it as written. Team pattern, you need the four extra moving parts above, and you need them before any evidence flows.
+
+## What I'd do this week if I were you
+
+If you've read the gist and you're seriously thinking about a wiki for your company, here is the order I would actually do it in.
+
+First, write the exclusion list. Thirty minutes, on a single page, before any code. HR, legal, finance, compensation, sensitive customer data, secrets, personal accounts. If you cannot write the list, you cannot run the wiki. This is the cheapest hour you will spend on the whole project.
+
+Then name your sources individually in a registry. Not "Slack," each channel. Not "Gmail," each alias with a window. The registry is just a markdown file at first, you can graduate it later.
+
+Set up staging next, a private folder the agent cannot read. All raw evidence lands here first, no exceptions, even for the founder.
+
+Define a review workflow, even if "review" is one person, one queue, once a week. The workflow needs to exist before evidence flows, not after the first incident.
+
+Then build the Karpathy three-layer wiki on top. Now it works for a team.
+
+If you'd rather not build the four-layer harness from scratch, that's what Company Brain Harness is for. It is an installable plugin for Claude Code and Codex that ships the registry, staging, review queue, exclusion routing, and approval scripts. The wiki itself is yours to shape, the harness around it is the part we've made deterministic.
+
+The gist is the right starting point. It just is not the finishing point for any team larger than one.

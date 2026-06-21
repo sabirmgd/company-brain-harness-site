@@ -1,0 +1,291 @@
+---
+title: "AGENTS.md vs CLAUDE.md vs SKILL.md: The 2026 Field Guide for Teams"
+description: "Three files. Three audiences. One question every team asks once they pass three repos: which one owns the rule? Here is the answer, with worked examples."
+slug: "agents-md-vs-claude-md-vs-skill-md-teams"
+publishedAt: "2026-06-22"
+updatedAt: "2026-06-22"
+author: "Sabir Moglad"
+category: "Standards"
+keywords:
+  - "agents.md vs claude.md"
+  - "agents.md"
+  - "claude.md"
+  - "skill.md"
+  - "claude code skills"
+  - "agentic ai foundation"
+  - "ai coding standards"
+  - "multi-repo claude code"
+ogImage: "/cbh-og-image.png"
+references:
+  - id: "agents-md-spec"
+    title: "AGENTS.md, a simple, open format for guiding coding agents"
+    publisher: "agents.md"
+    url: "https://agents.md/"
+    date: "2026"
+  - id: "lf-aaif"
+    title: "Linux Foundation Announces the Formation of the Agentic AI Foundation (AAIF), Anchored by New Project Contributions Including Model Context Protocol (MCP), goose and AGENTS.md"
+    publisher: "The Linux Foundation"
+    url: "https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation"
+    date: "December 9, 2025"
+  - id: "openai-codex-agents"
+    title: "Custom instructions with AGENTS.md, Codex"
+    publisher: "OpenAI Developers"
+    url: "https://developers.openai.com/codex/guides/agents-md"
+    date: "2026"
+  - id: "anthropic-memory"
+    title: "How Claude remembers your project"
+    publisher: "Anthropic / Claude Code Documentation"
+    url: "https://code.claude.com/docs/en/memory"
+    date: "2026"
+  - id: "anthropic-skills"
+    title: "Extend Claude with skills"
+    publisher: "Anthropic / Claude Code Documentation"
+    url: "https://code.claude.com/docs/en/skills"
+    date: "2026"
+  - id: "anthropic-skills-repo"
+    title: "anthropics/skills, public repository for Agent Skills"
+    publisher: "GitHub"
+    url: "https://github.com/anthropics/skills"
+    date: "2026"
+  - id: "cursor-rules"
+    title: "Rules, Cursor Docs"
+    publisher: "Cursor"
+    url: "https://cursor.com/docs/rules"
+    date: "2026"
+  - id: "openai-aaif"
+    title: "OpenAI co-founds the Agentic AI Foundation under the Linux Foundation"
+    publisher: "OpenAI"
+    url: "https://openai.com/index/agentic-ai-foundation/"
+    date: "December 2025"
+  - id: "codex-agents-md-repo"
+    title: "codex/AGENTS.md (the AGENTS.md file the Codex CLI ships with)"
+    publisher: "GitHub, openai/codex"
+    url: "https://github.com/openai/codex/blob/main/AGENTS.md"
+    date: "2026"
+---
+
+There are now three markdown files competing for the same square inch of your repo root.
+
+`AGENTS.md` tells every coding agent on the planet how your project works. `CLAUDE.md` does the same job, but only for Claude Code. `SKILL.md` is a different shape entirely, it defines a single reusable skill inside a folder, and it has no business being in your repo root at all.
+
+If your team uses two or more of Claude Code, Codex, Cursor, Sourcegraph Amp, Gemini CLI, or Factory, you've probably been bitten by all three. Someone wrote a `CLAUDE.md`, someone else wrote a `.cursorrules`, the Codex user pushed an `AGENTS.md`, and a skill author dropped a `SKILL.md` in the project root because they thought that's where it goes.
+
+## The short answer, before the detail
+
+If you only write one of these three in 2026, write `AGENTS.md`.
+
+It is the only one of the three read by every major coding agent on the market, it now has a neutral standards body behind it<Cite refId="lf-aaif" />, and Claude Code is happy to import it from a one-line `CLAUDE.md`<Cite refId="anthropic-memory" />. `CLAUDE.md` is a Claude-specific override layer that should be small. `SKILL.md` is a packaging format for a single reusable workflow, not a memory file at all<Cite refId="anthropic-skills" />.
+
+That ordering is the wedge. Everything below is the reasoning and the team patterns that follow from it.
+
+## What each file actually is
+
+| File | Audience | Read at | Lives at |
+| --- | --- | --- | --- |
+| `AGENTS.md` | Any coding agent that adopts the standard | Session start, per repo and per subdirectory | Repo root, plus nested files in monorepo folders |
+| `CLAUDE.md` | Claude Code only | Session start, walked up the directory tree | `./CLAUDE.md`, `~/.claude/CLAUDE.md`, or the OS-managed policy path |
+| `SKILL.md` | Claude Code (and the cross-tool Agent Skills standard) | On demand, when invoked or judged relevant | Inside a single skill folder, never in the repo root |
+
+Three audiences, three load behaviours, three scopes.
+
+### AGENTS.md, the lingua franca
+
+`AGENTS.md` started in August 2025 as a small open spec from OpenAI, with collaboration from Amp, Cursor, Factory, and Google's Jules<Cite refId="agents-md-spec" />. On December 9, 2025, the Linux Foundation announced the Agentic AI Foundation, with `AGENTS.md` contributed as a founding project alongside Anthropic's Model Context Protocol and Block's goose<Cite refId="lf-aaif" /><Cite refId="openai-aaif" />.
+
+Over 60,000 open-source projects already had an `AGENTS.md` at their root by then<Cite refId="lf-aaif" />. By mid-2026, tools that read it natively include OpenAI Codex, Google Gemini CLI, Cursor, GitHub Copilot, JetBrains Junie, Cognition's Devin and Windsurf, Aider, Sourcegraph Amp, Warp, Zed, RooCode, Continue, Factory, and Kilo Code<Cite refId="agents-md-spec" />.
+
+The spec is intentionally thin. No required schema, no mandatory headings, no JSON sidecar. Markdown, at the repo root, with whatever sections your team finds useful. The OpenAI Codex guide<Cite refId="openai-codex-agents" /> describes the file as "operational, not explanatory":
+
+> Every line should tell the agent to do something concrete or avoid something specific.
+
+Codex supports nested `AGENTS.md` files, walking from repo root down to the current directory with closer files overriding earlier guidance<Cite refId="openai-codex-agents" />. The same `closest file wins` model Claude Code uses for `CLAUDE.md`<Cite refId="anthropic-memory" />, which is what makes the symlink trick so clean.
+
+### CLAUDE.md, the Anthropic-native memory file
+
+`CLAUDE.md` predates `AGENTS.md` and is documented on Anthropic's memory page<Cite refId="anthropic-memory" />. Each Claude Code session starts with a fresh context window; `CLAUDE.md` is one of two mechanisms (the other being auto memory) that carries knowledge across sessions.
+
+The memory hierarchy has four layers:
+
+| Scope | Location | Maintained by |
+| --- | --- | --- |
+| Managed policy | OS-specific path (e.g. `/etc/claude-code/CLAUDE.md` on Linux) | IT or DevOps |
+| User | `~/.claude/CLAUDE.md` | The individual developer |
+| Project | `./CLAUDE.md` or `./.claude/CLAUDE.md` | The team, via source control |
+| Local | `./CLAUDE.local.md` | The individual, gitignored |
+
+All discovered files concatenate. Managed policy loads first, then user, then project, then local, with files closer to your working directory appearing later in context. Subdirectory `CLAUDE.md` files load on demand<Cite refId="anthropic-memory" />.
+
+Two features have no equivalent in `AGENTS.md` today: `@path` imports (recursive, four hops deep) and path-scoped rules in `.claude/rules/*.md` with glob patterns in YAML frontmatter<Cite refId="anthropic-memory" />. The `@import` syntax is the one to remember, because it is exactly how Claude Code reads an `AGENTS.md` your team already wrote.
+
+Anthropic's docs spell it out:
+
+> Claude Code reads `CLAUDE.md`, not `AGENTS.md`. If your repository already uses `AGENTS.md` for other coding agents, create a `CLAUDE.md` that imports it so both tools read the same instructions without duplicating them.
+
+The recommended pattern, lifted from the same page:
+
+```markdown
+@AGENTS.md
+
+## Claude Code
+
+Use plan mode for changes under `src/billing/`.
+```
+
+That is the seam. `AGENTS.md` is the team-shared, cross-tool source of truth. `CLAUDE.md` is a thin Claude-specific layer that imports the cross-tool file and adds whatever Claude needs that Codex or Cursor doesn't.
+
+### SKILL.md, a different layer entirely
+
+`SKILL.md` is not a memory file. It is the manifest for a single reusable skill inside a folder<Cite refId="anthropic-skills" />.
+
+A skill is a directory with at minimum a `SKILL.md`, plus optional `scripts/`, `references/`, and `assets/` subdirectories<Cite refId="anthropic-skills-repo" />. The `SKILL.md` has YAML frontmatter with `name` and `description`, followed by markdown instructions Claude executes when the skill runs.
+
+The minimal shape, from Anthropic's own `skill-creator`:
+
+```markdown
+---
+name: skill-creator
+description: Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill...
+---
+
+# Instructions
+
+Step 1, ...
+Step 2, ...
+```
+
+```text
+my-skill/
+├── SKILL.md           # required
+├── scripts/           # optional, deterministic code
+├── references/        # optional, docs loaded only when needed
+└── assets/            # optional, templates / fonts / icons
+```
+
+The load model is different from both `AGENTS.md` and `CLAUDE.md`. Skills do not enter the context at session start. The `description` is what Claude uses to decide whether to invoke the skill, and only when invoked does the body load<Cite refId="anthropic-skills" />.
+
+Claude Code skills also follow the cross-tool [Agent Skills](https://agentskills.io) standard, so a well-written skill folder is portable<Cite refId="anthropic-skills" />. Custom commands (the old `.claude/commands/*.md` shape) are now skills under the hood.
+
+The rule of thumb from Anthropic's docs is the cleanest one I've seen:
+
+> Create a skill when you keep pasting the same instructions, checklist, or multi-step procedure into chat, or when a section of `CLAUDE.md` has grown into a procedure rather than a fact.
+
+`CLAUDE.md` and `AGENTS.md` hold facts. `SKILL.md` holds procedures. If you find yourself writing "when X happens, do steps 1 through 7" in `CLAUDE.md`, that's a skill trying to escape.
+
+## Why a cross-tool standard had to happen
+
+Early 2025, every tool was inventing its own filename. `.cursorrules`, `.windsurfrules`, `.devin/rules/`, `CLAUDE.md`, `.github/copilot-instructions.md`. Teams using more than one tool ended up with three or four files saying mostly the same thing, and they drifted.
+
+`AGENTS.md` solved this for the same reason `package.json` solved it for Node. A common name at a common location, parsed by everyone, deliberately loose schema. The Linux Foundation ratification in December 2025<Cite refId="lf-aaif" /> gave it legitimacy: platinum members include AWS, Anthropic, Block, Bloomberg, Cloudflare, Google, Microsoft, and OpenAI<Cite refId="openai-aaif" />. Cursor's own docs now recommend `AGENTS.md` over `.cursorrules`, with the legacy file marked for deprecation<Cite refId="cursor-rules" />.
+
+## The decision matrix
+
+| If you... | Write it in... | Why |
+| --- | --- | --- |
+| Have a project-wide convention every agent should follow (build, lint, file layout, tests) | `AGENTS.md` at repo root | Read by every tool, single source of truth |
+| Have something Claude Code does that no other tool does (plan mode, subagent invocation) | `CLAUDE.md`, after `@AGENTS.md` | Claude-specific override, stays small |
+| Have something only Cursor does (`.mdc` rule with `alwaysApply: true`) | `.cursor/rules/*.mdc` | Cursor's path-scoped rule format |
+| Have a multi-step procedure you keep re-explaining (deploy, release, ticket triage) | A skill, with `SKILL.md` in its own folder | On-demand load, scoped invocation |
+| Have a personal preference that should not be committed | `CLAUDE.local.md` or `~/.claude/CLAUDE.md` | Local or user scope |
+| Have an org-wide rule that must apply on every machine | Managed-policy `CLAUDE.md` | OS-managed, non-overrideable |
+| Have a rule that only matters in `src/billing/` | Nested `AGENTS.md` in `src/billing/`, or path-scoped rule in `.claude/rules/` | Scoped load, less context wasted |
+
+Mental order: put the rule in the broadest layer that makes sense, then narrow only when you have to. Most rules belong in the team's `AGENTS.md`. A small number belong in `CLAUDE.md`. Very few belong in user scope. Almost none belong in managed policy unless you actually run an IT department.
+
+## Worked example, a small team
+
+Take a 12-person product team with a TypeScript monorepo. Claude Code as the daily driver, Codex for batch refactors, Cursor for two designers.
+
+The 2026 setup:
+
+```text
+my-repo/
+├── AGENTS.md                  # source of truth, ~150 lines
+├── CLAUDE.md                  # 5 lines: @AGENTS.md + Claude-specific notes
+├── .cursor/rules/             # Cursor-specific .mdc files, if any
+├── .claude/
+│   ├── rules/
+│   │   └── billing.md         # path-scoped rule, fires under src/billing/
+│   └── skills/
+│       ├── deploy/
+│       │   └── SKILL.md
+│       └── release-notes/
+│           └── SKILL.md
+└── src/
+    └── billing/
+        └── AGENTS.md          # nested, billing-specific overrides for any agent
+```
+
+One source of truth. Two thin Claude-specific layers (the import and `.claude/rules/`). Skills for procedures. Nested `AGENTS.md` for monorepo-local conventions every agent should respect.
+
+The `CLAUDE.md` file is short on purpose:
+
+```markdown
+@AGENTS.md
+
+## Claude Code only
+
+- Use plan mode for any change touching `src/billing/`.
+- For test runs over 30 seconds, dispatch a subagent instead of running inline.
+- Skills live under `.claude/skills/` and are committed.
+```
+
+Three Claude-specific behaviors with no analogue in Codex or Cursor, layered on top of the cross-tool file.
+
+## Common mistakes I keep seeing
+
+**Duplicating content between `AGENTS.md` and `CLAUDE.md`.** The two files diverge within a sprint. Codex tells you to run `npm run lint`, Claude Code tells you to run `pnpm lint`, and you are debugging your own tooling instead of your product. Fix: `@AGENTS.md` import, with `CLAUDE.md` reduced to genuinely Claude-only lines.
+
+**Putting `SKILL.md` in the repo root.** Skills are not memory files. A `SKILL.md` at the root will not load as project memory, and `AGENTS.md`-reading tools will not invoke it at all. Move it into `.claude/skills/<skill-name>/SKILL.md`.
+
+**Treating `CLAUDE.md` as a kitchen sink.** Long `CLAUDE.md` files consume context tokens, reduce adherence, and slow every session<Cite refId="anthropic-memory" />. Anthropic targets under 200 lines. If your file is longer, the overflow probably belongs in a skill (if it is a procedure), a path-scoped rule (if it only matters for one subtree), or `AGENTS.md` (if every tool should know).
+
+**Putting secrets in any of them.** All three files are committed to source control by default. None of them is the place for an API key, a database URL, or a customer name<Cite refId="openai-codex-agents" />. Route sensitive context through `CLAUDE.local.md` (gitignored) or a secret manager.
+
+**Forgetting that `CLAUDE.md` is a contract with the writer, not a permission boundary.** Same point I made in [the Karpathy wiki piece](/blog/beyond-karpathys-llm-wiki-source-approval). `CLAUDE.md` cannot enforce "do not read this file" because the agent already has file-system access by the time the file is parsed. For enforcement, use a PreToolUse hook or managed-settings permission denies<Cite refId="anthropic-memory" />, not a polite paragraph in markdown.
+
+## Multi-repo teams, the part nobody writes about
+
+Once you have ten repositories with `AGENTS.md` and `CLAUDE.md` in each, copy-paste is the failure mode that bites first. Three patterns work.
+
+**Pattern 1, a shared rules repo with symlinks.** Maintain a single `agents-rules/` repo with the shared lint, build, test, and conventions content. Symlink the relevant pieces into each repo's `.claude/rules/` (Claude Code resolves symlinks and detects circular ones)<Cite refId="anthropic-memory" />. Cursor's `.cursor/rules/` supports the same trick.
+
+**Pattern 2, an org-wide managed `CLAUDE.md`.** For Claude Code specifically, the managed-policy path applies to every session on every repo on every machine running your IT-pushed config. Use it for organization-wide rules (security, compliance, "always X, never Y"). Do not use it for project-specific rules, those still belong in the project file.
+
+**Pattern 3, a git submodule or subtree for shared agent infra.** Pull a small infra repo into each product repo. One place to change the rule, a normal PR to roll it out.
+
+I run pattern 1 with a thin pattern 3 fallback for skills. The rule is the same either way: one owner, every consumer reads from that owner, no copy-paste.
+
+## Who owns which rule, the brain-owner view
+
+If you treat your team's agent setup as a brain, somebody has to own which file owns which rule. That person is the brain owner, and the brain owner's first job is to draw the file-ownership map.
+
+The map I have settled on after running this for clients:
+
+- `AGENTS.md` owns project-level facts every agent must know: build commands, test commands, file layout, naming conventions, "do not touch this folder", security-relevant exclusions.
+- `CLAUDE.md` owns the thin Claude-specific overlay: plan-mode rules, subagent dispatch rules, hook-related notes, and the `@AGENTS.md` import line.
+- `.claude/rules/` owns path-scoped Claude rules. Claude-only because the path-scoping mechanism is Claude-only.
+- `.claude/skills/*/SKILL.md` owns repeatable multi-step procedures: deploy, release notes, ticket triage, monthly reports, code review templates.
+- `CLAUDE.local.md` owns the individual developer's local preferences, sandbox URLs, test data.
+- Managed-policy `CLAUDE.md` owns organization-wide rules IT pushes via MDM.
+
+That map is the artefact. Paste it in the team handbook, refer back to it the next time someone asks "where do I add this?"
+
+This is what Company Brain Harness is built around. The file-ownership map above is one of the templates it installs into a new repo. Without a deliberate map, every team rediscovers the answer the hard way, usually after the third tool joins the stack.
+
+## What I'd do this week if I were you
+
+If you have a Claude Code-first stack and no `AGENTS.md` yet, here is the order.
+
+Write the `AGENTS.md` first. Pull whatever is in `CLAUDE.md` that is genuinely cross-tool (build, test, lint, file layout, conventions) and move it to `AGENTS.md` at the repo root. Aim for 100 to 200 lines.
+
+Then shrink `CLAUDE.md` to a one-liner import plus the small list of Claude-only rules. First line `@AGENTS.md`. Everything below should be something Codex or Cursor genuinely cannot do.
+
+Audit your `.cursorrules`. Migrate to `AGENTS.md`<Cite refId="cursor-rules" /> and delete the legacy file.
+
+Lift any "procedure" content that snuck into `CLAUDE.md` (the "when X, do steps 1 through 7" stuff) into `.claude/skills/<name>/SKILL.md` with a `name` and a "Use when..." description<Cite refId="anthropic-skills" />.
+
+Write the file-ownership map for your team. Three sentences will do.
+
+If you run more than one repo, decide which pattern (symlinks, managed policy, submodule) you'll use for sharing rules. Start as soon as you have two repos with overlapping content. Three is too late.
+
+Three files, three audiences, one source of truth. The file is the easy part. The discipline of keeping `AGENTS.md` honest, `CLAUDE.md` thin, and `SKILL.md` scoped is the part that pays back every week.

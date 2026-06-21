@@ -41,9 +41,20 @@ Canonical site: https://companyos.deleg8.dev
 ## Useful Pages
 
 - `/` - full product and documentation overview.
+- `/blog` - long-form articles on governed company memory, Claude Code for teams, source approval workflows, and operating rhythm.
+- `/blog/{slug}` - individual articles. See `/sitemap.xml` for the current list.
 - `/robots.txt` - crawler policy and sitemap location.
-- `/sitemap.xml` - canonical indexable URL.
+- `/sitemap.xml` - canonical indexable URLs.
 - `/ai.txt` - concise AI-agent usage guide.
+
+## Blog Coverage Areas
+
+- The company brain pattern and how it differs from RAG, enterprise search, and personal knowledge bases.
+- Source approval workflows: staging, review, promotion, and exclusion of HR, finance, legal data.
+- Claude Code for teams: multi-repo CLAUDE.md, plugins for shared engineering use, agency operations.
+- AGENTS.md, CLAUDE.md, and SKILL.md as cross-tool standards for team agent configuration.
+- Brain Owner, Brain Operator, and Team Member operating playbooks.
+- Honest commercial comparisons: company brain plugin vs Glean, Notion AI, ChatGPT Teams, Custom GPTs.
 
 ## Recommended Agent Summary
 
