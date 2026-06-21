@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
-  "https://company-brain-harness-site-j6cr4ur6gq-uc.a.run.app";
+  "https://companyos.deleg8.dev";
 
 export default function robots(): MetadataRoute.Robots {
   return {

@@ -7,7 +7,7 @@ RUN npm ci
 FROM node:22-alpine AS builder
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
-ARG NEXT_PUBLIC_SITE_URL=https://company-brain-harness-site-j6cr4ur6gq-uc.a.run.app
+ARG NEXT_PUBLIC_SITE_URL=https://companyos.deleg8.dev
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -19,7 +19,7 @@ ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=8080
 ENV HOSTNAME=0.0.0.0
-ARG NEXT_PUBLIC_SITE_URL=https://company-brain-harness-site-j6cr4ur6gq-uc.a.run.app
+ARG NEXT_PUBLIC_SITE_URL=https://companyos.deleg8.dev
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
 
 RUN addgroup -S nodejs && adduser -S nextjs -G nodejs

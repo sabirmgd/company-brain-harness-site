@@ -15,7 +15,7 @@ env:
   REGION: us-central1
   SERVICE: company-brain-harness-site
   ARTIFACT_REPOSITORY: company-brain-harness
-  SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL || 'https://company-brain-harness-site-j6cr4ur6gq-uc.a.run.app' }}
+  SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL || 'https://companyos.deleg8.dev' }}
 
 jobs:
   deploy:
